@@ -38,7 +38,7 @@ class Photo extends Component {
             return (
                 <div key={photos.name}>
                     {photos.map(photo =>
-                        <img src={photo.link} width="20%" height="30%" />
+                        <img src={photo.link} width="20%" height="30%" alt="Photos" />
                     )}
                 </div>
             );

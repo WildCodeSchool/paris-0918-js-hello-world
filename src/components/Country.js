@@ -43,8 +43,8 @@ class Country extends Component {
             return (
                     <div key={country.name}>
                         <h2> {country.name} </h2>
-                        <h3>{country.region}</h3> 
-                        <img src = {country.flag} width="200px"></img> 
+                        <h3>{country.region}</h3>
+                        <img src = {country.flag} width="200px" alt="Flag"></img> 
                         <h3>{country.capital}</h3>
                         <h3>Monnaie: {country.currencies.map(currency => currency.code).join(",")}</h3>
                         <h3>Population: {country.population} habitants</h3> 
