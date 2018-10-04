@@ -10,14 +10,15 @@ class Photo extends Component {
         };
     };
     componentDidMount() {
-        let url = "API a ajouter" + this.state.findCountryPhoto;
+        let url = "https://pixabay.com/api/?key=10254779-b58df8361cdd84c5b8f150886&page=1&per_page=5&image_type=photo&pretty=true&category=travel&q=tourist+" + this.state.findCountryPhoto;
         fetch(url)
             .then(res => res.json())
             .then(
                 (result) => {
                     this.setState({
                         isLoaded: true,
-                        photos: result.items
+                        // photos: result.items
+                        photos: result.hits
                     });
                 },
                 (error) => {
@@ -38,7 +39,7 @@ class Photo extends Component {
             return (
                 <div key={photos.name}>
                     {photos.map(photo =>
-                        <img src={photo.link} width="20%" height="30%" alt="Photos" />
+                        <img src={photo.largeImageURL} width="20%" height="30%" />
                     )}
                 </div>
             );

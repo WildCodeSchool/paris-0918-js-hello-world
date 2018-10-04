@@ -133,7 +133,7 @@ class BasicMap extends Component {
 
         {/* Modal to display country */}
         <Modal isOpen={this.state.showModal}  >
-          <div onClick={this.closeModal} >
+          <div onClick={this.closeModal}>
             <Country countryName={this.state.selectedCountryName} />
           </div>
           <div>
