@@ -1,4 +1,3 @@
-
 import React, { Component } from "react"
 import {
   ComposableMap,
@@ -11,11 +10,11 @@ import ReactTooltip from "react-tooltip"
 import Country from './Country' // componant prive
 import Photos from './Photo'
 import Modal from 'react-modal';
-import Video from './Youtube'
+import Video from './Video'
 
 const wrapperStyles = {
   width: "100%",
-  maxWidth:"100%",
+  maxWidth: "100%",
   margin: "0 auto",
 }
 
@@ -53,24 +52,24 @@ class BasicMap extends Component {
     })
   }
   handleZoomIn() {
-    if (this.state.zoom===3.375) {
+    if (this.state.zoom === 3.375) {
       this.setState({
         zoom: this.state.zoom,
       })
     }
-    else{
+    else {
       this.setState({
         zoom: this.state.zoom * 1.5,
       })
     }
   }
   handleZoomOut() {
-    if (this.state.zoom===1) {
+    if (this.state.zoom === 1) {
       this.setState({
         zoom: this.state.zoom,
       })
     }
-    else{
+    else {
       this.setState({
         zoom: this.state.zoom / 1.5,
       })
@@ -93,7 +92,7 @@ class BasicMap extends Component {
             height: "auto",
           }}
         >
-          <ZoomableGroup zoom={ this.state.zoom }>
+          <ZoomableGroup zoom={this.state.zoom}>
             {/* <Geographies geography={process.env.PUBLIC_URL + '/world-50m.json'}> */}
             <Geographies geography={require('../images/world-50m.json')}>
 
@@ -140,7 +139,7 @@ class BasicMap extends Component {
             <Photos countryName={this.state.selectedCountryName} />
           </div>
           <div>
-            <Video />
+            <Video countryName={this.state.selectedCountryName} />
           </div>
         </Modal>
 
