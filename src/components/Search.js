@@ -1,8 +1,5 @@
 import  React, { Component } from 'react'
 import Modal from 'react-modal';
-import Country from './Country'
-import Photos from './Photo'
-import Video from './Youtube'
 
 
 
@@ -19,6 +16,7 @@ class Search extends Component {
     Currencie:undefined,
     Population:undefined,
     Area:undefined,
+    Error:undefined,
     showModal : false 
   }
 
@@ -41,6 +39,8 @@ class Search extends Component {
     const api_call = await fetch(`https://restcountries.eu/rest/v2/name/${country}`);
     const data = await api_call.json();
     console.log(data);
+    
+   if (data.status != 404){
     this.setState({
       Country:data[0].name,
       Region:data[0].region,
@@ -49,10 +49,13 @@ class Search extends Component {
       Currencie:data[0].currencies[0].name,
       Population:data[0].population,
       Area:data[0].area,
-
-    })
+      Error:""
     
+    });
   }
+  
+
+}
 
   render() {
 
@@ -65,18 +68,20 @@ class Search extends Component {
             </form>
         </div> 
 
+      {this.state.Country && 
         <Modal isOpen={this.state.showModal}>  
             <div onClick={this.closeModal} >
               <p>Country : {this.state.Country}</p>
               <p>Region : {this.state.Region}</p>
-              <p>Flag : <img src={this.state.Flag}  width="200px" alt="Flag"></img></p>
+              <p><img src={this.state.Flag}  width="200px" alt="Flag"></img></p>
               <p>Capital : {this.state.Capital}</p>
               <p>Currencie : {this.state.Currencie}</p>
               <p>Population : {this.state.Population} Inhabitants</p>
               <p>Area : {this.state.Area} Km²</p>
-            
+              <p>{this.state.e}</p>
             </div>
-        </Modal>             
+        </Modal>  
+      }           
       </div>
     );
   }
