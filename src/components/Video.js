@@ -12,7 +12,7 @@ class Video extends Component {
     }
 
     componentDidMount() {
-        let url = "https://www.googleapis.com/youtube/v3/search?part=snippet&key=AIzaSyC_kX9In6aA3pSlkHV7kkT10iuSx86EiGs&maxResults=1&q=travel+" + this.state.findCountryName;
+        let url = "API a ajouter" + this.state.findCountryName;
         fetch(url)
             .then(res => res.json())
             .then(
@@ -62,7 +62,8 @@ class Video extends Component {
     }
     _onReady(event) {
         // access to player in all event handlers via event.target
-        event.target.playVideo();
+        event.target.pauseVideo();
+        // event.target.playVideo();
     }
 }
 

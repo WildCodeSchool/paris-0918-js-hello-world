@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import ImageGridList from "./GridPhotos"
 class Photo extends Component {
     constructor(props) {
         super(props);
@@ -10,15 +11,15 @@ class Photo extends Component {
         };
     };
     componentDidMount() {
-        let url = "https://www.googleapis.com/customsearch/v1?key=AIzaSyDy0f8cqSd40ZwIH6w3i74TIrCOUuUEB9U&cx=009955408747414043287:ibxkpos9m3w&searchType=image&num=5&q=travel%20" + this.state.findCountryPhoto;
+        let url = "API a ajouter" + this.state.findCountryPhoto;
         fetch(url)
             .then(res => res.json())
             .then(
                 (result) => {
                     this.setState({
                         isLoaded: true,
-                        // photos: result.items
                         photos: result.items
+                        //photos: result.hits
                     });
                 },
                 (error) => {
@@ -38,9 +39,10 @@ class Photo extends Component {
         } else {
             return (
                 <div key={photos.name}>
-                    {photos.map(photo =>
-                        <img src={photo.link} width="20%" height="30%" />
-                    )}
+                    {/* {photos.map(photo =>
+                        <img src={photo.link} width="30%" height="20%" marginLeft="5px"/> 
+                    )} */}
+                    <ImageGridList photos={photos}/>
                 </div>
             );
         }
