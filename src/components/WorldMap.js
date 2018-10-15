@@ -1,4 +1,3 @@
-
 import React, { Component } from "react"
 import {
   ComposableMap,
@@ -7,7 +6,7 @@ import {
   Geography,
 } from "react-simple-maps"
 import ReactTooltip from "react-tooltip"
-
+import {Grid } from '@material-ui/core';
 import Country from './Country' // componant prive
 import Photos from './Photo'
 import Modal from 'react-modal'
@@ -80,8 +79,14 @@ class BasicMap extends Component {
   render() {
     return (
       <div style={wrapperStyles}>
+       <Grid container
+                    direction="row"
+                    justify="center"
+                    alignItems="center"
+                    marginTop='20px'>
         <button onClick={this.handleZoomIn}>{"Zoom in"}</button>
         <button onClick={this.handleZoomOut}>{"Zoom out"}</button>
+        </Grid>
         <ComposableMap
           projectionConfig={{
             scale: 205,

@@ -1,5 +1,12 @@
 import React, { Component } from "react"
 import YouTube from 'react-youtube';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import '../css/Header.css';
+import { Drawer, Grid } from '@material-ui/core';
+import Form from './Form';
+import ButtonClose from './ButtonClose';
+import ButtonContact from './ButtonContact';
 class Video extends Component {
     constructor(props) {
         super(props);
@@ -12,7 +19,7 @@ class Video extends Component {
     }
 
     componentDidMount() {
-        let url = "API a ajouter" + this.state.findCountryName;
+        let url = "https://www.googleapis.com/youtube/v3/search?part=snippet&key=AIzaSyC_kX9In6aA3pSlkHV7kkT10iuSx86EiGs&maxResults=1&q=travel+" + this.state.findCountryName;
         fetch(url)
             .then(res => res.json())
             .then(
@@ -51,11 +58,17 @@ class Video extends Component {
         } else {
             return (
                 <div>
+                    <Grid container 
+                    direction="row"
+                    justify="center"
+                    alignItems="center"
+                    marginTop='20px'>
                     <YouTube
                         videoId={myVideo.id.videoId}
                         opts={opts}
                         onReady={this._onReady}
                     />
+                    </Grid>
                 </div>
             );
         }
@@ -63,7 +76,6 @@ class Video extends Component {
     _onReady(event) {
         // access to player in all event handlers via event.target
         event.target.pauseVideo();
-        // event.target.playVideo();
     }
 }
 

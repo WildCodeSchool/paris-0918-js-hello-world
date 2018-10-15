@@ -11,7 +11,7 @@ class Photo extends Component {
         };
     };
     componentDidMount() {
-        let url = "API a ajouter" + this.state.findCountryPhoto;
+        let url = "https://www.googleapis.com/customsearch/v1?key=AIzaSyDy0f8cqSd40ZwIH6w3i74TIrCOUuUEB9U&cx=009955408747414043287:ibxkpos9m3w&searchType=image&imgType:photo&imgSize:small&num=6&q=travel%20" + this.state.findCountryPhoto;
         fetch(url)
             .then(res => res.json())
             .then(

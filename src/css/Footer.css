@@ -1,0 +1,13 @@
+.footer{
+    background-color: #7FBAFF;
+    /* align-content: center;
+    position: relative; */
+    text-align: center;
+    height: 15vh;
+    color: #FFF;
+    padding: 10px;
+}
+.textfooter {
+    margin-top: 3vh;
+}
+

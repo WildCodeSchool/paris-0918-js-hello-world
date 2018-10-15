@@ -6,6 +6,7 @@ import Modal from 'react-modal';
 import Video from './Video';
 import BoutonEnter from "./BoutonEnter";
 import BoutonShuffle from "./BoutonShuffle"
+import { Grid } from "@material-ui/core";
 
 class SearchBarAuto extends Component {
     constructor(props) {
@@ -56,6 +57,11 @@ class SearchBarAuto extends Component {
             showModal: false
         })
     }
+    // handleOnChange = (event) => {
+    //     this.setState({
+    //         country: event.target.value
+    //     })
+    // }
     handleOnChange = (event, value) => {
         if (this.state.countries !== undefined) {
             let newSearchCountries = this.state.countries.filter(c => c.name.toLowerCase().includes(value.toLowerCase()));
@@ -65,8 +71,17 @@ class SearchBarAuto extends Component {
             });
         }
     }
+    // handleOnChange = (event, value) => {
+    //     if (this.state.countries !== undefined) {
+    //         let newSearchCountries = this.state.countries.filter(c => c.name.toLowerCase().includes(value.toLowerCase()));
+    //         this.setState({
+    //             country: value,
+    //             searchCountries: newSearchCountries
+    //         });
+    //     }
+    // }
     hanldeRenderItem = (item, isHighlighted) => {
-        if (this.state.country === undefined || this.state.country.length < 2) {
+        if (this.state.country === undefined || this.state.country.length < 1) {
             return (<h1 />);
         } else {
             return (
@@ -78,7 +93,7 @@ class SearchBarAuto extends Component {
     handleOnSelect = (val) => {
         this.setState({
             country: val,
-            // showModal: true
+            showModal: true
         });
         // this.doOpenModal();
     }
@@ -103,17 +118,35 @@ class SearchBarAuto extends Component {
             return (
 
                 <div>
-                    <BoutonShuffle travel={this.getRandomCountry}/>
-                    <BoutonEnter travel={this.openModal}/> 
-                    <Autocomplete
-                        inputProps={{ id: "countries-autocomplete" }}
-                        getItemValue={(item) => item.name}
-                        items={searchCountries}
-                        renderItem={this.hanldeRenderItem}
-                        value={country}
-                        onChange={this.handleOnChange}
-                        onSelect={this.handleOnSelect}
-                    />
+                    {/* <form onSubmit={this.openModal}></form> */}
+                    <Grid container
+                        direction="row"
+                        justify="center"
+                        alignItems="center"
+                    >
+                        <Grid item>
+                            <Autocomplete
+                                inputProps={{ id: "countries-autocomplete" }}
+                                getItemValue={(item) => item.name}
+                                items={searchCountries}
+                                renderItem={this.hanldeRenderItem}
+                                value={country}
+                                onChange={this.handleOnChange}
+                                onSelect={this.handleOnSelect}
+                            />
+                        </Grid>
+                        <Grid item>
+                            <BoutonShuffle travel={this.getRandomCountry} />
+                        </Grid>
+
+
+                    </Grid>
+
+                    {/* <BoutonEnter travel={this.openModal}/> */}
+
+
+                    {/* <button onClick={this.openModal}>Show me more</button>
+                    <button onClick={this.getRandomCountry}> Surprise me </button> */}
 
                     <Modal isOpen={this.state.showModal}  >
                         <div onClick={this.closeModal}>
