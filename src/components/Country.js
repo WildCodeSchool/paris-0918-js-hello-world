@@ -9,9 +9,24 @@ class Country extends Component {
             findCountryName: props.countryName
         };
     }
+    formatNumber = (n) => {
+        if (n != undefined) {
+            return n.toString().split('').reverse().map((e, i) => {
+                if (i % 3 == 0 && i != 0) {
+                    e = e + ",";
+                }
+                return e;
+            }
+            ).reverse().join('')
+        }
+        else {
+            return "";
+        }
+    }
+
 
     componentDidMount() {
-        let url = "https://restcountries.eu/rest/v2/name/" + this.state.findCountryName; 
+        let url = "https://restcountries.eu/rest/v2/name/" + this.state.findCountryName;
         fetch(url)
             .then(res => res.json())
             .then(
@@ -41,15 +56,15 @@ class Country extends Component {
             return <div>Loading...</div>;
         } else {
             return (
-                    <div key={country.name}>
-                        <h2> {country.name} </h2>
-                        <h3>{country.region}</h3>
-                        <img src = {country.flag} width="200px" alt="Flag"></img> 
-                        <h3>{country.capital}</h3>
-                        <h3>Monnaie: {country.currencies.map(currency => currency.code).join(",")}</h3>
-                        <h3>Population: {country.population} habitants</h3> 
-                        <h3>Supercitie:{country.area}km² </h3> 
-                    </div>
+                <div key={country.name}>
+                    <h2> {country.name} </h2>
+                    <h3>Region:{country.region}</h3>
+                    <img src={country.flag} width="400px" alt="Flag"></img>
+                    <h3>Capitale :{country.capital}</h3>
+                    <h3>Monnaie: {country.currencies.map(currency => currency.name).join(",")}</h3>
+                    <h3>Population: {this.formatNumber(country.population)} Inhabitants</h3>
+                    <h3>Area: {this.formatNumber(country.area)} km² </h3>
+                </div>
             );
         }
     }

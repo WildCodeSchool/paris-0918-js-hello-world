@@ -1,5 +1,12 @@
 import React, { Component } from "react"
 import YouTube from 'react-youtube';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import '../css/Header.css';
+import { Drawer, Grid } from '@material-ui/core';
+import Form from './Form';
+import ButtonClose from './ButtonClose';
+import ButtonContact from './ButtonContact';
 class Video extends Component {
     constructor(props) {
         super(props);
@@ -51,18 +58,24 @@ class Video extends Component {
         } else {
             return (
                 <div>
+                    <Grid container 
+                    direction="row"
+                    justify="center"
+                    alignItems="center"
+                    marginTop='20px'>
                     <YouTube
                         videoId={myVideo.id.videoId}
                         opts={opts}
                         onReady={this._onReady}
                     />
+                    </Grid>
                 </div>
             );
         }
     }
     _onReady(event) {
         // access to player in all event handlers via event.target
-        event.target.playVideo();
+        event.target.pauseVideo();
     }
 }
 

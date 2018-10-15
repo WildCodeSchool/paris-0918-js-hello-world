@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -13,13 +14,16 @@ const styles = theme => ({
   textField: {
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
-    width: 600,
+    width: '100%',
+
   },
   dense: {
     marginTop: 19,
   },
   menu: {
-    width: 200,
+
+    width: '100vw',
+
   },
 });
 
@@ -39,7 +43,9 @@ const questions = [
 ];
 
 
-class TextFields extends React.Component {
+
+class Form extends React.Component {
+
   state = {
     name: '',
     // age: '',
@@ -58,8 +64,9 @@ class TextFields extends React.Component {
     const { classes } = this.props;
 
     return (
-      <form className={classes.container} noValidate autoComplete="off">        
-        
+
+      <form className={classes.container} noValidate autoComplete="off">
+
         <TextField
           required
           id="standard-required"
@@ -97,7 +104,7 @@ class TextFields extends React.Component {
             </MenuItem>
           ))}
         </TextField>
-        
+
         <TextField
           id="standard-multiline-static"
           label="Your message"
@@ -106,15 +113,17 @@ class TextFields extends React.Component {
           className={classes.textField}
           margin="normal"
         />
-                 
+
       </form>
     );
   }
 }
 
-TextFields.propTypes = {
+
+Form.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(TextFields);
+export default withStyles(styles)(Form);
+
 

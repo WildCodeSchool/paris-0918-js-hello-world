@@ -2,16 +2,22 @@ import React, { Component } from 'react';
 import './css/App.css';
 import WorldMap from './components/WorldMap'
 import Header from './components/Header'
-import Search from './components/Search';
+import SearchBarAuto from "./components/SearchBarAuto";
+import Footer from "./components/Footer"
+
 
 class App extends Component {
   render() {
     return (
       <div>
         <Header/>
-        <Search/>
-        <WorldMap />
-        
+        <SearchBarAuto/>
+        <div>
+          <WorldMap />
+        </div>
+        <div>
+          <Footer/>
+        </div>
       </div>
     );
   }

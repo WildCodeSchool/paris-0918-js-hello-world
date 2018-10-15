@@ -28,4 +28,8 @@ class ButtonClose extends Component {
 
 }
 
+
 export default withStyles(styles)(ButtonClose);
+
+
+

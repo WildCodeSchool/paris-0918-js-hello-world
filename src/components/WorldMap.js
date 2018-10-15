@@ -6,15 +6,15 @@ import {
   Geography,
 } from "react-simple-maps"
 import ReactTooltip from "react-tooltip"
-
+import {Grid } from '@material-ui/core';
 import Country from './Country' // componant prive
 import Photos from './Photo'
-import Modal from 'react-modal';
+import Modal from 'react-modal'
 import Video from './Video'
 
 const wrapperStyles = {
   width: "100%",
-  maxWidth: "100%",
+  maxWidth:"100%",
   margin: "0 auto",
 }
 
@@ -52,24 +52,24 @@ class BasicMap extends Component {
     })
   }
   handleZoomIn() {
-    if (this.state.zoom === 3.375) {
+    if (this.state.zoom===3.375) {
       this.setState({
         zoom: this.state.zoom,
       })
     }
-    else {
+    else{
       this.setState({
         zoom: this.state.zoom * 1.5,
       })
     }
   }
   handleZoomOut() {
-    if (this.state.zoom === 1) {
+    if (this.state.zoom===1) {
       this.setState({
         zoom: this.state.zoom,
       })
     }
-    else {
+    else{
       this.setState({
         zoom: this.state.zoom / 1.5,
       })
@@ -79,8 +79,14 @@ class BasicMap extends Component {
   render() {
     return (
       <div style={wrapperStyles}>
+       <Grid container
+                    direction="row"
+                    justify="center"
+                    alignItems="center"
+                    marginTop='20px'>
         <button onClick={this.handleZoomIn}>{"Zoom in"}</button>
         <button onClick={this.handleZoomOut}>{"Zoom out"}</button>
+        </Grid>
         <ComposableMap
           projectionConfig={{
             scale: 205,
@@ -92,7 +98,7 @@ class BasicMap extends Component {
             height: "auto",
           }}
         >
-          <ZoomableGroup zoom={this.state.zoom}>
+          <ZoomableGroup zoom={ this.state.zoom }>
             {/* <Geographies geography={process.env.PUBLIC_URL + '/world-50m.json'}> */}
             <Geographies geography={require('../images/world-50m.json')}>
 
@@ -139,7 +145,7 @@ class BasicMap extends Component {
             <Photos countryName={this.state.selectedCountryName} />
           </div>
           <div>
-            <Video countryName={this.state.selectedCountryName} />
+            <Video countryName = {this.state.selectedCountryName} />
           </div>
         </Modal>
 
