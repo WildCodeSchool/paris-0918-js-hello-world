@@ -4,6 +4,8 @@ import WorldMap from './components/WorldMap'
 import Header from './components/Header'
 import SearchBarAuto from "./components/SearchBarAuto";
 import Footer from "./components/Footer"
+
+
 class App extends Component {
   render() {
     return (

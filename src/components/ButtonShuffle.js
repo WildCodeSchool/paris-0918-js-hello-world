@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
-import Close from '@material-ui/icons/Close';
+import Shuffle from '@material-ui/icons/Shuffle';
+
 
 const styles = {
     button: {
@@ -9,27 +10,23 @@ const styles = {
         "&:hover": {
             backgroundColor: '#5883b5',
             opacity: '0.2'
-        },
+        }
     },
     icon: {
         color:'#FFF'
     },
 };
 
-class ButtonClose extends Component {
+class ButtonShuffle extends Component {
     render() {
         const { classes } = this.props;
         return (
-            <Button className={classes.button} variant="flat" >
-                <Close className={classes.icon}/>
+            <Button className={classes.button} variant="flat" color="primary">
+                <Shuffle className={classes.icon}/>
             </Button>
         );
     }
 
 }
 
-
-export default withStyles(styles)(ButtonClose);
-
-
-
+export default withStyles(styles)(ButtonShuffle);
