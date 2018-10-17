@@ -7,10 +7,6 @@ import {
 } from "react-simple-maps";
 import ReactTooltip from "react-tooltip";
 import { Grid } from '@material-ui/core';
-// import Country from './Country'; // componant prive
-// import Photos from './Photo';
-// import Modal from 'react-modal';
-// import Video from './Video';
 import SlideInfos from "./SlideInfos";
 import ButtonMore from './ButtonMore';
 import ButtonLess from './ButtonLess';

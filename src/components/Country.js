@@ -37,7 +37,7 @@ class Country extends Component {
         };
     }
     formatNumber = (n) => {
-        if (n !== undefined) {
+        if (n) {
             return n.toString().split('').reverse().map((e, i) => {
                 if (i % 3 === 0 && i !== 0) {
                     e = e + ",";
@@ -96,7 +96,7 @@ class Country extends Component {
                         <Grid item xs={5} >
                             <p> {country.name}</p>
                         </Grid>
-                        <Grid item xs={2} >
+                        <Grid item xs={2}>
                         </Grid>
                         <Grid item xs={5}>
                             <img className={classes.imgFlag} src={country.flag} alt="Flag"></img>
@@ -112,10 +112,10 @@ class Country extends Component {
                             <p><span className={classes.titleInfos}>Continent ▻</span> {country.region}</p>
                         </Grid>
                         <Grid item xs={12}>
-                            <p><span className={classes.titleInfos}>Capitale ▻</span>  {country.capital}</p>
+                            <p><span className={classes.titleInfos}>Capital ▻</span>  {country.capital}</p>
                         </Grid>
                         <Grid item xs={12}>
-                            <p><span className={classes.titleInfos}>Monnaie ▻</span>  {country.currencies.map(currency => currency.name).join(",")}</p>
+                            <p><span className={classes.titleInfos}>Currency ▻</span>  {country.currencies.map(currency => currency.name).join(",")}</p>
                         </Grid>
                         <Grid item xs={12}>
                             <p><span className={classes.titleInfos}>Population ▻</span>  {this.formatNumber(country.population)}</p>

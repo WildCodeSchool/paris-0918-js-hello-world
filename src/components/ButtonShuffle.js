@@ -21,7 +21,7 @@ class ButtonShuffle extends Component {
     render() {
         const { classes } = this.props;
         return (
-            <Button className={classes.button} variant="text" color="primary">
+            <Button onClick={this.props.travel} className={classes.button} variant="text" color="primary">
                 <Shuffle className={classes.icon}/>
             </Button>
         );

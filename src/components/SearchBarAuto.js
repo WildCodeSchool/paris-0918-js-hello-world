@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { withStyles } from '@material-ui/core/styles';
 import Autocomplete from "react-autocomplete";
-import BoutonShuffle from "./BoutonShuffle"
+import ButtonShuffle from "./ButtonShuffle"
 import { Grid, InputBase } from "@material-ui/core";
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import SearchIcon from '@material-ui/icons/Search';
@@ -19,7 +19,7 @@ const styles = theme => ({
     },
     search: {
         position: 'relative',
-        borderRadius: theme.shape.borderRadius,
+        borderRadius: 'theme.shape.borderRadius',
         backgroundColor: fade(theme.palette.common.white, 0.15),
         '&:hover': {
             backgroundColor: fade(theme.palette.common.white, 0.25),
@@ -45,6 +45,9 @@ const styles = theme => ({
         width: '100%',
     },
     inputInput: {
+        height: '30px',
+        borderRadius: '5px',
+        backgroundColor: '#f3f8ff',
         paddingTop: theme.spacing.unit,
         paddingRight: theme.spacing.unit,
         paddingBottom: theme.spacing.unit,
@@ -69,8 +72,8 @@ class SearchBarAuto extends Component {
             countries: undefined,
             searchCountries: undefined,
             country: "",
-            showSlide: false
-
+            showSlide: false,
+            myRef: React.createRef()
         };
     };
     componentDidMount() {
@@ -92,6 +95,8 @@ class SearchBarAuto extends Component {
                 }
             )
     }
+
+
     handleOnChange = (event, value) => {
         if (this.state.countries !== undefined) {
             let newSearchCountries = this.state.countries.filter(c => c.name.toLowerCase().includes(value.toLowerCase()));
@@ -143,7 +148,6 @@ class SearchBarAuto extends Component {
         else {
             return (
                 <div>
-                    {/* <form onSubmit={this.openModal}></form> */}
                     <Grid container className={classes.root}
                         direction="row"
                         justify="center"
@@ -161,20 +165,20 @@ class SearchBarAuto extends Component {
                                         input: classes.inputInput,
                                     }}
                                 />
-                                <Autocomplete
-                                    inputProps={{ id: "countries-autocomplete" }}
-                                    getItemValue={(item) => item.name}
-                                    items={searchCountries}
-                                    renderItem={this.hanldeRenderItem}
-                                    value={country}
-                                    onChange={this.handleOnChange}
-                                    onSelect={this.handleOnSelect}
-                                />
                             </div>
                         </Grid>
                         <Grid item className={classes.items}>
-                            <BoutonShuffle travel={this.getRandomCountry} />
+                            <ButtonShuffle travel={this.getRandomCountry} />
                         </Grid>
+                        <Autocomplete
+                            inputProps={{ id: "countries-autocomplete" }}
+                            getItemValue={(item) => item.name}
+                            items={searchCountries}
+                            renderItem={this.hanldeRenderItem}
+                            value={country}
+                            onChange={this.handleOnChange}
+                            onSelect={this.handleOnSelect}
+                        />
                         <SlideInfos
                             handleToUpdate={this.handleToUpdate}
                             showSlide={this.state.showSlide}
