@@ -1,23 +1,75 @@
 import React, { Component } from "react";
+import { withStyles } from '@material-ui/core/styles';
 import Autocomplete from "react-autocomplete";
-import Country from './Country'; // componant prive
-import Photos from './Photo';
-import Modal from 'react-modal';
-import Video from './Video';
-import BoutonEnter from "./BoutonEnter";
 import BoutonShuffle from "./BoutonShuffle"
-import { Grid } from "@material-ui/core";
+import { Grid, InputBase } from "@material-ui/core";
+import { fade } from '@material-ui/core/styles/colorManipulator';
+import SearchIcon from '@material-ui/icons/Search';
+
+import SlideInfos from "./SlideInfos";
+
+const styles = theme => ({
+
+    root: {
+        backgroundColor: '#aac9ee',
+        padding: '1vh'
+    },
+    items: {
+        margin: '1vw'
+    },
+    search: {
+        position: 'relative',
+        borderRadius: theme.shape.borderRadius,
+        backgroundColor: fade(theme.palette.common.white, 0.15),
+        '&:hover': {
+            backgroundColor: fade(theme.palette.common.white, 0.25),
+        },
+        marginLeft: 0,
+        width: '100%',
+        [theme.breakpoints.up('sm')]: {
+            marginLeft: theme.spacing.unit,
+            width: 'auto',
+        },
+    },
+    searchIcon: {
+        width: theme.spacing.unit * 9,
+        height: '100%',
+        position: 'absolute',
+        pointerEvents: 'none',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    inputRoot: {
+        color: 'inherit',
+        width: '100%',
+    },
+    inputInput: {
+        paddingTop: theme.spacing.unit,
+        paddingRight: theme.spacing.unit,
+        paddingBottom: theme.spacing.unit,
+        paddingLeft: theme.spacing.unit * 10,
+        transition: theme.transitions.create('width'),
+        width: '100%',
+        [theme.breakpoints.up('sm')]: {
+            width: 120,
+            '&:focus': {
+                width: 200,
+            }
+        }
+    }
+})
 
 class SearchBarAuto extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            showModal: false,
             error: null,
             isLoaded: false,
             countries: undefined,
             searchCountries: undefined,
-            country: ""
+            country: "",
+            showSlide: false
 
         };
     };
@@ -40,46 +92,15 @@ class SearchBarAuto extends Component {
                 }
             )
     }
-    openModal = (event) => {
-        event.preventDefault();
-        this.setState({
-            showModal: true
-        })  // this.doOpenModal();
-    }
-    // doOpenModal = () => {
-    //     this.setState({
-    //         showModal: true
-    //     })
-
-    // }
-    closeModal = () => {
-        this.setState({
-            showModal: false
-        })
-    }
-    // handleOnChange = (event) => {
-    //     this.setState({
-    //         country: event.target.value
-    //     })
-    // }
     handleOnChange = (event, value) => {
         if (this.state.countries !== undefined) {
             let newSearchCountries = this.state.countries.filter(c => c.name.toLowerCase().includes(value.toLowerCase()));
             this.setState({
                 country: value,
-                searchCountries: newSearchCountries
+                searchCountries: newSearchCountries,
             });
         }
     }
-    // handleOnChange = (event, value) => {
-    //     if (this.state.countries !== undefined) {
-    //         let newSearchCountries = this.state.countries.filter(c => c.name.toLowerCase().includes(value.toLowerCase()));
-    //         this.setState({
-    //             country: value,
-    //             searchCountries: newSearchCountries
-    //         });
-    //     }
-    // }
     hanldeRenderItem = (item, isHighlighted) => {
         if (this.state.country === undefined || this.state.country.length < 1) {
             return (<h1 />);
@@ -93,22 +114,27 @@ class SearchBarAuto extends Component {
     handleOnSelect = (val) => {
         this.setState({
             country: val,
-            showModal: true
-        });
-        // this.doOpenModal();
+            showSlide: true
+        })
+            ;
     }
+
+    handleToUpdate = () => {
+        this.setState({ showSlide: false })
+    }
+
     getRandomCountry = () => {
         let index = Math.round(Math.random() * (this.state.countries.length - 1));
         let randomCountry = this.state.countries[index];
         this.setState({
             country: randomCountry.name,
-            showModal: true
+            showSlide: true
         });
-        // this.doOpenModal();
     }
 
     render() {
-        const { error, isLoaded, searchCountries, country } = this.state;
+        const { classes } = this.props;
+        const { error, isLoaded, searchCountries, country, countryComplete } = this.state;
         if (error) {
             return <div>Error: {error.message}</div>;
         } else if (!isLoaded) {
@@ -116,54 +142,50 @@ class SearchBarAuto extends Component {
         }
         else {
             return (
-
                 <div>
                     {/* <form onSubmit={this.openModal}></form> */}
-                    <Grid container
+                    <Grid container className={classes.root}
                         direction="row"
                         justify="center"
                         alignItems="center"
                     >
-                        <Grid item>
-                            <Autocomplete
-                                inputProps={{ id: "countries-autocomplete" }}
-                                getItemValue={(item) => item.name}
-                                items={searchCountries}
-                                renderItem={this.hanldeRenderItem}
-                                value={country}
-                                onChange={this.handleOnChange}
-                                onSelect={this.handleOnSelect}
-                            />
+                        <Grid item className={classes.items}>
+                            <div className={classes.search}>
+                                <div className={classes.searchIcon}>
+                                    <SearchIcon />
+                                </div>
+                                <InputBase
+                                    placeholder="Search…"
+                                    classes={{
+                                        root: classes.inputRoot,
+                                        input: classes.inputInput,
+                                    }}
+                                />
+                                <Autocomplete
+                                    inputProps={{ id: "countries-autocomplete" }}
+                                    getItemValue={(item) => item.name}
+                                    items={searchCountries}
+                                    renderItem={this.hanldeRenderItem}
+                                    value={country}
+                                    onChange={this.handleOnChange}
+                                    onSelect={this.handleOnSelect}
+                                />
+                            </div>
                         </Grid>
-                        <Grid item>
+                        <Grid item className={classes.items}>
                             <BoutonShuffle travel={this.getRandomCountry} />
                         </Grid>
-
-
+                        <SlideInfos
+                            handleToUpdate={this.handleToUpdate}
+                            showSlide={this.state.showSlide}
+                            countryName={country}
+                        />
                     </Grid>
 
-                    {/* <BoutonEnter travel={this.openModal}/> */}
-
-
-                    {/* <button onClick={this.openModal}>Show me more</button>
-                    <button onClick={this.getRandomCountry}> Surprise me </button> */}
-
-                    <Modal isOpen={this.state.showModal}  >
-                        <div onClick={this.closeModal}>
-                            <Country countryName={this.state.country} />
-                        </div>
-                        <div>
-                            <Photos countryName={this.state.country} />
-                        </div>
-                        <div>
-                            <Video countryName={this.state.country} />
-                        </div>
-                    </Modal>
                 </div>
-
             )
-
         }
     }
 };
-export default SearchBarAuto;
+
+export default withStyles(styles)(SearchBarAuto);

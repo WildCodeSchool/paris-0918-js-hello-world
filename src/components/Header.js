@@ -47,14 +47,11 @@ class Header extends Component {
                     justify="center"
                     alignItems="center">
                     <Grid item xs={4} md={5}/>
-                    <Grid item xs={4} md={2}
-                    direction="row"
-                    justify="center">
+                    <Grid item xs={4} md={2}>
                         <img className="logo" src={require('../images/Logo.svg')} alt="Logo" />
                     </Grid>
                     <Grid item xs={2} md={4}/>
                     <Grid item xs={2} md={1}
-                    alignContent="flex-end"
                     onClick={this.handleToggle}>
                         <ButtonContact />
                     </Grid>

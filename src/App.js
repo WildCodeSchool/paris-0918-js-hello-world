@@ -14,6 +14,7 @@ class App extends Component {
         <SearchBarAuto/>
         <div>
           <WorldMap />
+          
         </div>
         <div>
           <Footer/>

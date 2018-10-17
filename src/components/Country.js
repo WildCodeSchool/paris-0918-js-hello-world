@@ -1,4 +1,31 @@
-import React, { Component } from "react"
+import React, { Component } from "react";
+import { Grid } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
+
+const styles = theme => ({
+    root: {
+        flexGrow: "1",
+        fontSize: '1.1em',
+        color: '#315681',
+        padding: '6%',
+        
+    },
+    imgFlag: {
+        width: '85%'
+    },
+    titleName: {
+        textAlign: 'center',
+        fontSize: '1.3em'
+    },
+    titleInfos: {
+        fontWeight:'500'
+    },
+    text: {
+        textAlign:"center"
+    }
+
+});
+
 class Country extends Component {
     constructor(props) {
         super(props);
@@ -10,9 +37,9 @@ class Country extends Component {
         };
     }
     formatNumber = (n) => {
-        if (n != undefined) {
+        if (n !== undefined) {
             return n.toString().split('').reverse().map((e, i) => {
-                if (i % 3 == 0 && i != 0) {
+                if (i % 3 === 0 && i !== 0) {
                     e = e + ",";
                 }
                 return e;
@@ -49,6 +76,7 @@ class Country extends Component {
     }
 
     render() {
+        const { classes } = this.props;
         const { error, isLoaded, country, findCountryName } = this.state;
         if (error) {
             return <div>Error: {error.message}</div>;
@@ -56,18 +84,51 @@ class Country extends Component {
             return <div>Loading...</div>;
         } else {
             return (
-                <div key={country.name}>
-                    <h2> {country.name} </h2>
-                    <h3>Region:{country.region}</h3>
-                    <img src={country.flag} width="400px" alt="Flag"></img>
-                    <h3>Capitale :{country.capital}</h3>
-                    <h3>Monnaie: {country.currencies.map(currency => currency.name).join(",")}</h3>
-                    <h3>Population: {this.formatNumber(country.population)} Inhabitants</h3>
-                    <h3>Area: {this.formatNumber(country.area)} km² </h3>
+
+                <div key={country.name} className={classes.root}>
+                    <Grid className={classes.titleName}
+                        container
+                        direction="row"
+                        justify="center"
+                        alignItems="center"
+                        spacing={16}
+                    >
+                        <Grid item xs={5} >
+                            <p> {country.name}</p>
+                        </Grid>
+                        <Grid item xs={2} >
+                        </Grid>
+                        <Grid item xs={5}>
+                            <img className={classes.imgFlag} src={country.flag} alt="Flag"></img>
+                        </Grid>
+                    </Grid>
+                    <Grid className={classes.text}
+                        container
+                        direction="column"
+                        justify="center"
+                        alignItems="center"
+                    >
+                        <Grid item xs={12}>
+                            <p><span className={classes.titleInfos}>Continent ▻</span> {country.region}</p>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <p><span className={classes.titleInfos}>Capitale ▻</span>  {country.capital}</p>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <p><span className={classes.titleInfos}>Monnaie ▻</span>  {country.currencies.map(currency => currency.name).join(",")}</p>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <p><span className={classes.titleInfos}>Population ▻</span>  {this.formatNumber(country.population)}</p>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <p><span className={classes.titleInfos}>Area ▻</span>  {this.formatNumber(country.area)} km² </p>
+                        </Grid>
+                    </Grid>
                 </div>
+
             );
         }
     }
 }
 
-export default Country
+export default withStyles(styles)(Country);

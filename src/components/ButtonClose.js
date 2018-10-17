@@ -20,7 +20,7 @@ class ButtonClose extends Component {
     render() {
         const { classes } = this.props;
         return (
-            <Button className={classes.button} variant="flat" >
+            <Button className={classes.button} variant="text" >
                 <Close className={classes.icon}/>
             </Button>
         );

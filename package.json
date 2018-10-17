@@ -13,10 +13,12 @@
     "react-modal": "^3.6.1",
     "react-scripts": "1.1.5",
     "react-simple-maps": "^0.12.1",
+    "react-slick": "^0.23.1",
     "react-tooltip": "^3.3.0",
     "react-youtube": "^7.7.0",
     "redux": "3.7.2",
-    "redux-tooltip": "0.7.2"
+    "redux-tooltip": "0.7.2",
+    "slick-carousel": "^1.8.1"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -28,8 +28,10 @@ function ImageGridList(props) {
       <div className={classes.root}>
         <GridList cellHeight={300} className={classes.gridList} cols={3}>
           {photos.map(photo => (
-            <GridListTile key={photo.link} cols={1}>
-              <img src={photo.link} alt={photo.title} />
+            <GridListTile key={photo.largeImageURL} cols={1}>
+              <img src={photo.largeImageURL} alt={photo.title} />
+              {/* <img src={photo.link} alt={photo.title} /> */}
+
             </GridListTile>
           ))}
         </GridList>

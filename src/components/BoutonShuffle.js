@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes, { func } from 'prop-types';
+import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 // import AddIcon from '@material-ui/icons/Add';
@@ -29,7 +29,7 @@ const styles = theme => ({
       const {classes, travel} = props;
       return (
           <div>
-              <Button onClick = {travel} variant="flat" color="primary" className={classes.button}> 
+              <Button onClick = {travel} variant="text" color="primary" className={classes.button}> 
               <Shuffle className={classes.icon}/></Button>
               {/* <img width={"20px"} height={"20px"} src={require('../images/shuffle.svg')} alt="shuffle"/> */}
           </div> 
