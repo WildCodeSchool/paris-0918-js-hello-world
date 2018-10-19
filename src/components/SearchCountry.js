@@ -1,92 +1,59 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import Select from 'react-select';
+import SlideInfos from './SlideInfos'
 import { withStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import NoSsr from '@material-ui/core/NoSsr';
-import TextField from '@material-ui/core/TextField';
-import Paper from '@material-ui/core/Paper';
-import Chip from '@material-ui/core/Chip';
-import MenuItem from '@material-ui/core/MenuItem';
-import CancelIcon from '@material-ui/icons/Cancel';
-import { emphasize } from '@material-ui/core/styles/colorManipulator';
+import { TextField, Paper, MenuItem, Grid } from '@material-ui/core/';
 
-const suggestions = [
-    { label: 'Afghanistan' },
-    { label: 'Aland Islands' },
-    { label: 'Albania' },
-    { label: 'Algeria' },
-    { label: 'American Samoa' },
-    { label: 'Andorra' },
-    { label: 'Angola' },
-    { label: 'Anguilla' },
-    { label: 'Antarctica' },
-    { label: 'Antigua and Barbuda' },
-    { label: 'Argentina' },
-    { label: 'Armenia' },
-    { label: 'Aruba' },
-    { label: 'Australia' },
-    { label: 'Austria' },
-    { label: 'Azerbaijan' },
-    { label: 'Bahamas' },
-    { label: 'Bahrain' },
-    { label: 'Bangladesh' },
-    { label: 'Barbados' },
-    { label: 'Belarus' },
-    { label: 'Belgium' },
-    { label: 'Belize' },
-    { label: 'Benin' },
-    { label: 'Bermuda' },
-    { label: 'Bhutan' },
-    { label: 'Bolivia, Plurinational State of' },
-    { label: 'Bonaire, Sint Eustatius and Saba' },
-    { label: 'Bosnia and Herzegovina' },
-    { label: 'Botswana' },
-    { label: 'Bouvet Island' },
-    { label: 'Brazil' },
-    { label: 'British Indian Ocean Territory' },
-    { label: 'Brunei Darussalam' },
+import SearchIcon from '@material-ui/icons/Search';
 
-].map(suggestion => ({
-    value: suggestion.label,
-    label: suggestion.label,
-}));
+
 
 const styles = theme => ({
     root: {
         flexGrow: 1,
         height: 'auto',
+        width: '250px',
+        // [theme.breakpoints.up('sm')]: {
+        //     width: '100vw',
+        // }
+
+    },
+    select: {
+        "&:before": {
+            borderColor: 'green'
+        },
     },
     input: {
         display: 'flex',
-        padding: 0,
+        padding: 5,
+        height: '30px',
+        borderRadius: '5px',
+        backgroundColor: '#f3f8ff',
+        color: '#315681',
     },
     valueContainer: {
         display: 'flex',
         flexWrap: 'wrap',
         flex: 1,
         alignItems: 'center',
-    },
-    chip: {
-        margin: `${theme.spacing.unit / 2}px ${theme.spacing.unit / 4}px`,
-    },
-    chipFocused: {
-        backgroundColor: emphasize(
-            theme.palette.type === 'light' ? theme.palette.grey[300] : theme.palette.grey[700],
-            0.08,
-        ),
+        color: '#315681',
     },
     noOptionsMessage: {
-        padding: `${theme.spacing.unit}px ${theme.spacing.unit * 2}px`,
+        padding: 5,
+        backgroundColor: '#f3f8ff',
+        color: '#315681',
     },
-    singleValue: {
-        fontSize: 16,
+    countryChooseValue: {
+        fontSize: 14,
+        color: '#315681',
     },
     placeholder: {
         position: 'absolute',
-        left: 2,
-        fontSize: 16,
+        left: 10,
+        fontSize: 14,
+        color: '#315681',
+
     },
     paper: {
         position: 'absolute',
@@ -95,25 +62,34 @@ const styles = theme => ({
         left: 0,
         right: 0,
     },
-    divider: {
-        height: theme.spacing.unit * 2,
-    },
+    iconSearch: {
+        color: '#315681'
+    }
 });
+
 
 function NoOptionsMessage(props) {
     return (
-        <Typography
-            color="textSecondary"
+        <div
+            //color="textSecondary"
             className={props.selectProps.classes.noOptionsMessage}
             {...props.innerProps}
         >
             {props.children}
-        </Typography>
+        </div>
     );
 }
 
 function inputComponent({ inputRef, ...props }) {
     return <div ref={inputRef} {...props} />;
+}
+
+function Menu(props) {
+    return (
+        <Paper square className={props.selectProps.classes.paper} {...props.innerProps}>
+            {props.children}
+        </Paper>
+    );
 }
 
 function Control(props) {
@@ -141,6 +117,8 @@ function Option(props) {
             selected={props.isFocused}
             component="div"
             style={{
+                //backgroundColor: '#f3f8ff',
+                // backgroundColor: props.isSelected ? '#315681' : '#f3f8ff',
                 fontWeight: props.isSelected ? 500 : 400,
             }}
             {...props.innerProps}
@@ -152,21 +130,21 @@ function Option(props) {
 
 function Placeholder(props) {
     return (
-        <Typography
-            color="textSecondary"
+        <div
+            //color="textSecondary"
             className={props.selectProps.classes.placeholder}
             {...props.innerProps}
         >
             {props.children}
-        </Typography>
+        </div>
     );
 }
 
-function SingleValue(props) {
+function countryChooseValue(props) {
     return (
-        <Typography className={props.selectProps.classes.singleValue} {...props.innerProps}>
+        <div className={props.selectProps.classes.countryChooseValue} {...props.innerProps}>
             {props.children}
-        </Typography>
+        </div>
     );
 }
 
@@ -174,85 +152,117 @@ function ValueContainer(props) {
     return <div className={props.selectProps.classes.valueContainer}>{props.children}</div>;
 }
 
-function MultiValue(props) {
-    return (
-        <Chip
-            tabIndex={-1}
-            label={props.children}
-            className={classNames(props.selectProps.classes.chip, {
-                [props.selectProps.classes.chipFocused]: props.isFocused,
-            })}
-            onDelete={props.removeProps.onClick}
-            deleteIcon={<CancelIcon {...props.removeProps} />}
-        />
-    );
-}
-
-function Menu(props) {
-    return (
-        <Paper square className={props.selectProps.classes.paper} {...props.innerProps}>
-            {props.children}
-        </Paper>
-    );
-}
 
 const components = {
     Control,
     Menu,
-    MultiValue,
     NoOptionsMessage,
     Option,
     Placeholder,
-    SingleValue,
+    countryChooseValue,
     ValueContainer,
 };
 
 class SearchCountry extends React.Component {
     state = {
-        single: null,
-        multi: null,
+        countryChoose: null,
+        error: null,
+        isLoaded: false,
+        showSlide: false,
+        nameList: undefined,
     };
+
+    componentDidMount() {
+        fetch("https://restcountries.eu/rest/v2/all")
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    this.setState({
+                        isLoaded: true,
+                        nameList: result.map(e => ({
+                            value: e.name,
+                            label: e.name,
+                        })),
+                    })
+                },
+                (error) => {
+                    this.setState({
+                        isLoaded: true,
+                        error
+                    })
+                }
+            )
+    }
 
     handleChange = name => value => {
-        this.setState({
-            [name]: value,
-        });
+        if (value.value) {
+            this.setState({
+                [name]: value,
+                showSlide: true,
+            })
+        }
     };
 
+    //Remonte le props depuis l'enfant
+    handleToUpdate = () => {
+        this.setState({
+            showSlide: false,
+            countryChoose: null
+        })
+    }
+
+
+
+
     render() {
-        const { classes, theme } = this.props;
+        const { classes } = this.props;
+        const { error, isLoaded, nameList, showSlide, countryChoose } = this.state;
 
-        const selectStyles = {
-            input: base => ({
-                ...base,
-                color: theme.palette.text.primary,
-                '& input': {
-                    font: 'inherit',
-                },
-            }),
-        };
+        if (error) {
+            return <div>Error: {error.message}</div>;
+        } else if (!isLoaded) {
+            return <div>Loading...</div>;
+        }
+        else {
+            return (
+                <div className={classes.root}>
+                    <Grid container
+                        direction="row"
+                        justify="flex-end"
+                        alignItems="center"
+                    >
+                        <Grid item xs={2}>
+                            <SearchIcon className={classes.iconSearch} />
+                        </Grid>
+                        <Grid item xs={10}>
+                            <Select
+                                className={classes.select}
+                                classes={classes}
+                                styles={styles}
+                                options={nameList && nameList}
+                                components={components}
+                                value={countryChoose}
+                                onChange={this.handleChange('countryChoose')}
+                                placeholder={"Search a country ..."}
+                            />
+                        </Grid>
 
-        return (
-            <div className={classes.root}>
-                <NoSsr>
-                    <Select
-                        classes={classes}
-                        styles={selectStyles}
-                        options={suggestions}
-                        components={components}
-                        value={this.state.single}
-                        onChange={this.handleChange('single')}
-                        placeholder="Search a country (start with a)"
-                    />
-                </NoSsr>
-            </div>
-        );
+                        <SlideInfos
+                            handleToUpdate={this.handleToUpdate}
+                            showSlide={showSlide}
+                            countryName={countryChoose && countryChoose.value}
+                        />
+                    </Grid>
+                </div>
+
+            );
+        }
     }
 }
 
 SearchCountry.propTypes = {
     classes: PropTypes.object.isRequired,
-    theme: PropTypes.object.isRequired,
+    //theme: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles, { withTheme: true })(SearchCountry);
+export default withStyles(styles)(SearchCountry);

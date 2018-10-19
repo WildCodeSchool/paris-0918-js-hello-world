@@ -43,20 +43,24 @@ const styles = theme => ({
     //marginTop:'5%',
     color: '#fff',
     margin:'O',
-    padding:'0'
+    padding:'0',
+    backgroundColor: 'rgba(170, 201, 238, 0.15)'
   },
   slide1: {
     height: 'auto',
     color: '#6AC0FF',
-    //backgroundColor: '#FEA900',
+    //backgroundColor: '#aac9ee',
+    //border: 'solid 1px #aac9ee'
   },
   slide2: {
     height: '50vh',
-    //backgroundColor: '#B3DC4A',
+    //backgroundColor: '#aac9ee',
+    //border: 'solid 1px #aac9ee'
   },
   slide3: {
     height: '50vh',
-    //backgroundColor: '#6AC0FF',
+    //backgroundColor: '#aac9ee',
+    //border: 'solid 1px #aac9ee'
   },
 });
 
@@ -77,13 +81,13 @@ class SlideInfos extends React.Component {
 
   // RENDER
   render() {
-    const { classes } = this.props;
+    const { classes, countryName } = this.props;
     const { index } = this.state;
     //Settings slick
     const settings = {
       dots: true,
       infinite: false,
-      speed: 400,
+      speed: 500,
       slidesToShow: 1,
       slidesToScroll: 1,
       swipeToSlide: true,
@@ -118,10 +122,10 @@ class SlideInfos extends React.Component {
                   value={index}
                 >
                   <div>
-                    <h3><div className={classes.slide1}>{<Country countryName={this.props.countryName} />}</div></h3>
+                    <h3><div className={classes.slide1}>{<Country countryName={countryName} />}</div></h3>
                   </div>
                   <div>
-                    <h3><div className={classes.slide2}>{<Photo countryName={this.props.countryName} />}</div></h3>
+                    <h3><div className={classes.slide2}>{<Photo countryName={countryName} />}</div></h3>
                   </div>
                   <div>
                     <h3><div className={classes.slide3}>{/*<Video countryName={this.props.countryName} />*/}</div></h3>

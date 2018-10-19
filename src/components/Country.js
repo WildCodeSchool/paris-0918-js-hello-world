@@ -8,7 +8,7 @@ const styles = theme => ({
         fontSize: '1.1em',
         color: '#315681',
         padding: '6%',
-        
+
     },
     imgFlag: {
         width: '85%'
@@ -18,10 +18,10 @@ const styles = theme => ({
         fontSize: '1.3em'
     },
     titleInfos: {
-        fontWeight:'500'
+        fontWeight: '500'
     },
     text: {
-        textAlign:"center"
+        textAlign: "center"
     }
 
 });
@@ -84,7 +84,6 @@ class Country extends Component {
             return <div>Loading...</div>;
         } else {
             return (
-
                 <div key={country.name} className={classes.root}>
                     <Grid className={classes.titleName}
                         container

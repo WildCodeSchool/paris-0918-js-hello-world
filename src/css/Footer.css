@@ -1,13 +1,14 @@
-.footer{
-    background-color: #7FBAFF;
-    /* align-content: center;
-    position: relative; */
+.foot{
     text-align: center;
-    height: 15vh;
-    color: #FFF;
-    padding: 10px;
-}
-.textfooter {
-    margin-top: 3vh;
+    background-color: #7FBAFF;
+    padding: 0.5vh;
 }
 
+.text{
+    color: #f3f8ff;
+}
+
+a{
+    /*text-decoration: none;*/
+    color: #f3f8ff
+}
