@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import '../css/Header.css';
 import { Drawer, Grid } from '@material-ui/core';
 import Form from './Form';
 import ButtonClose from './ButtonClose';
@@ -26,6 +25,21 @@ const styles = theme => ({
     },
     titleContact: {
         color: '#5883b5'
+    },
+    header: {
+        backgroundColor: '#7FBAFF',
+        color: '#FFF',
+        textAlign: 'center'
+    },
+    titleHeader: {
+        fontFamily: 'SumberJaya',
+        fontSize: '0.5em',
+        [theme.breakpoints.up('xs')]: {
+            fontSize: '1em',
+        },
+    },
+    logo: {
+        height: '75px'
     }
 
 });
@@ -41,25 +55,28 @@ class Header extends Component {
     render() {
         const { classes } = this.props;
         return (
-            <div className="header">
+            <div className={classes.header}>
                 <Grid container
                     direction="row"
                     justify="center"
-                    alignItems="center">
-                    <Grid item xs={4} md={5}/>
-                    <Grid item xs={4} md={2}
-                    direction="row"
-                    justify="center">
-                        <img className="logo" src={require('../images/Logo.svg')} alt="Logo" />
+                    alignItems="center"
+                    alignContent="center"
+                >
+                    <Grid item xs={3}></Grid>
+
+                    <Grid item xs={2}>
+                        <img className={classes.logo} src={require('../images/Logo.svg')} alt="Logo" />
                     </Grid>
-                    <Grid item xs={2} md={4}/>
-                    <Grid item xs={2} md={1}
-                    alignContent="flex-end"
-                    onClick={this.handleToggle}>
+                    <Grid item xs={4} className={classes.titleHeader}>
+                        <h1>HELLO WORLD</h1>
+                    </Grid>
+
+                    <Grid item xs={1} ></Grid>
+                    <Grid item xs={2}
+                        onClick={this.handleToggle}>
                         <ButtonContact />
                     </Grid>
                 </Grid>
-
                 <Drawer
                     docked="false"
                     anchor="right"

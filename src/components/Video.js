@@ -1,12 +1,8 @@
 import React, { Component } from "react"
 import YouTube from 'react-youtube';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
 import '../css/Header.css';
-import { Drawer, Grid } from '@material-ui/core';
-import Form from './Form';
-import ButtonClose from './ButtonClose';
-import ButtonContact from './ButtonContact';
+import {Grid } from '@material-ui/core';
+
 class Video extends Component {
     constructor(props) {
         super(props);
@@ -43,8 +39,8 @@ class Video extends Component {
 
     render() {
         const opts = {
-            height: '390',
-            width: '640',
+            height: 'auto',
+            width: 'auto',
             playerVars: { // https://developers.google.com/youtube/player_parameters
                 autoplay: 1
 
@@ -62,7 +58,7 @@ class Video extends Component {
                     direction="row"
                     justify="center"
                     alignItems="center"
-                    marginTop='20px'>
+                    >
                     <YouTube
                         videoId={myVideo.id.videoId}
                         opts={opts}

@@ -20,7 +20,7 @@ class ButtonEnter extends Component {
     render() {
         const { classes } = this.props;
         return (
-            <Button className={classes.button} variant="flat" color="primary">
+            <Button className={classes.button} variant="text" color="primary">
                 <SubdirectoryArrowLeft className={classes.icon}/>
             </Button>
         );

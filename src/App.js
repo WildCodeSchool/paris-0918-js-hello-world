@@ -4,6 +4,9 @@ import WorldMap from './components/WorldMap'
 import Header from './components/Header'
 import SearchBarAuto from "./components/SearchBarAuto";
 import Footer from "./components/Footer"
+import SearchCountry from "./components/SearchCountry";
+import PartSearch from './components/PartSearch';
+
 
 
 class App extends Component {
@@ -11,7 +14,7 @@ class App extends Component {
     return (
       <div>
         <Header/>
-        <SearchBarAuto/>
+        <PartSearch/>
         <div>
           <WorldMap />
         </div>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
-import Shuffle from '@material-ui/icons/Shuffle';
+import More from '@material-ui/icons/AddCircle';
 
 
 const styles = {
@@ -17,16 +17,16 @@ const styles = {
     },
 };
 
-class ButtonShuffle extends Component {
+class ButtonMore extends Component {
     render() {
         const { classes } = this.props;
         return (
-            <Button onClick={this.props.travel} className={classes.button} variant="text" color="primary">
-                <Shuffle className={classes.icon}/>
+            <Button className={classes.button} mini variant="fab" color="primary">
+                <More className={classes.icon}/>
             </Button>
         );
     }
 
 }
 
-export default withStyles(styles)(ButtonShuffle);
+export default withStyles(styles)(ButtonMore);

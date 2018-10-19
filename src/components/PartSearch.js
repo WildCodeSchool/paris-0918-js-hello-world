@@ -1,32 +1,28 @@
 import React, { Component } from "react";
 import { withStyles } from '@material-ui/core/styles';
-import Autocomplete from "react-autocomplete";
+// import Autocomplete from "react-autocomplete";
 import ButtonShuffle from "./ButtonShuffle"
-import { Grid, InputBase } from "@material-ui/core";
-import { fade } from '@material-ui/core/styles/colorManipulator';
-import SearchIcon from '@material-ui/icons/Search';
+import { Grid } from "@material-ui/core";
 import SlideInfos from "./SlideInfos";
 import SearchCountry from "./SearchCountry";
 
-const styles = theme => ({
+const styles = () => ({
     root: {
         backgroundColor: '#aac9ee',
-        padding: '1vh'
+        padding: '0.5vh'
     },
     items: {
         margin: '1vw'
     },
 })
 
-class SearchBarAuto extends Component {
+class PartSearch extends Component {
     constructor(props) {
         super(props);
         this.state = {
             error: null,
             isLoaded: false,
             countries: undefined,
-            searchCountries: undefined,
-            country: "",
             showSlide: false,
         };
     };
@@ -40,8 +36,6 @@ class SearchBarAuto extends Component {
                         countries: result,
                         searchCountries: result
                     })
-                    //console.log(this.state.countries);
-                    
                 },
                 (error) => {
                     this.setState({
@@ -50,34 +44,6 @@ class SearchBarAuto extends Component {
                     })
                 }
             )
-    }
-
-
-    handleOnChange = (event, value) => {
-        if (this.state.countries !== undefined) {
-            let newSearchCountries = this.state.countries.filter(c => c.name.toLowerCase().includes(value.toLowerCase()));
-            this.setState({
-                country: value,
-                searchCountries: newSearchCountries,
-            });
-        }
-    }
-    hanldeRenderItem = (item, isHighlighted) => {
-        if (this.state.country === undefined || this.state.country.length < 1) {
-            return (<h1 />);
-        } else {
-            return (
-                <div style={{ background: isHighlighted ? 'lightgray' : 'white' }}>
-                    {item.name}
-                </div>)
-        }
-    }
-    handleOnSelect = (val) => {
-        this.setState({
-            country: val,
-            showSlide: true
-        })
-            ;
     }
 
     handleToUpdate = () => {
@@ -110,27 +76,17 @@ class SearchBarAuto extends Component {
                         alignItems="center"
                     >
                         <Grid item className={classes.items}>
-                            {/* Call Search Country */}
+                            <SearchCountry />
                         </Grid>
                         <Grid item className={classes.items}>
                             <ButtonShuffle travel={this.getRandomCountry} />
                         </Grid>
-                        {/* <Autocomplete
-                            inputProps={{ id: "countries-autocomplete" }}
-                            getItemValue={(item) => item.name}
-                            items={searchCountries}
-                            renderItem={this.hanldeRenderItem}
-                            value={country}
-                            onChange={this.handleOnChange}
-                            onSelect={this.handleOnSelect}
-                        /> */}
-                        <SearchCountry/>
-                        <SlideInfos
+                    </Grid>
+                    <SlideInfos
                             handleToUpdate={this.handleToUpdate}
                             showSlide={this.state.showSlide}
                             countryName={country}
                         />
-                    </Grid>
 
                 </div>
             )
@@ -138,4 +94,4 @@ class SearchBarAuto extends Component {
     }
 };
 
-export default withStyles(styles)(SearchBarAuto);
+export default withStyles(styles)(PartSearch);
