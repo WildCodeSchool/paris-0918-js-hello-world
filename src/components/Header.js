@@ -35,7 +35,7 @@ const styles = theme => ({
     logo: {
         maxWidth: '60vw',
         maxHeight: '8vh',
-        [theme.breakpoints.up('md')]: {
+        [theme.breakpoints.up('sm')]: {
             marginLeft: '17vw',
         },
     }
