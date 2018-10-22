@@ -29,19 +29,16 @@ const styles = theme => ({
     header: {
         backgroundColor: '#7FBAFF',
         color: '#FFF',
-        textAlign: 'center'
-    },
-    titleHeader: {
-        fontFamily: 'SumberJaya',
-        fontSize: '0.5em',
-        [theme.breakpoints.up('xs')]: {
-            fontSize: '1em',
-        },
+        textAlign: 'center',
+        padding: 10
     },
     logo: {
-        height: '75px'
+        maxWidth: '60vw',
+        maxHeight: '8vh',
+        [theme.breakpoints.up('md')]: {
+            marginLeft: '17vw',
+        },
     }
-
 });
 
 class Header extends Component {
@@ -61,17 +58,11 @@ class Header extends Component {
                     justify="center"
                     alignItems="center"
                     alignContent="center"
+                    wrap='nowrap'
                 >
-                    <Grid item xs={3}></Grid>
-
-                    <Grid item xs={2}>
+                    <Grid item xs={10}>
                         <img className={classes.logo} src={require('../images/Logo.svg')} alt="Logo" />
                     </Grid>
-                    <Grid item xs={4} className={classes.titleHeader}>
-                        <h1>HELLO WORLD</h1>
-                    </Grid>
-
-                    <Grid item xs={1} ></Grid>
                     <Grid item xs={2}
                         onClick={this.handleToggle}>
                         <ButtonContact />
@@ -81,8 +72,6 @@ class Header extends Component {
                     docked="false"
                     anchor="right"
                     open={this.state.open}
-                //onClick={this.handleClose}
-                //onKeyDown={this.handleClose}
                 >
                     <div className={classes.root}>
                         <Grid

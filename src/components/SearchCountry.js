@@ -14,15 +14,14 @@ const styles = theme => ({
         flexGrow: 1,
         height: 'auto',
         width: '250px',
+
         // [theme.breakpoints.up('sm')]: {
         //     width: '100vw',
         // }
 
     },
     select: {
-        "&:before": {
-            borderColor: 'green'
-        },
+       
     },
     input: {
         display: 'flex',
@@ -63,7 +62,13 @@ const styles = theme => ({
         right: 0,
     },
     iconSearch: {
-        color: '#315681'
+        height:'25px',
+        color: '#315681',
+        //backgroundColor: '#f3f8ff',
+        borderRadius: '5px',
+        marginTop:'2px',
+        marginLeft: '20px'
+
     }
 });
 
@@ -231,10 +236,7 @@ class SearchCountry extends React.Component {
                         justify="flex-end"
                         alignItems="center"
                     >
-                        <Grid item xs={2}>
-                            <SearchIcon className={classes.iconSearch} />
-                        </Grid>
-                        <Grid item xs={10}>
+                        <Grid item xs={12}>
                             <Select
                                 className={classes.select}
                                 classes={classes}

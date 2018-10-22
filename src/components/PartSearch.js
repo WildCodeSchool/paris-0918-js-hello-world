@@ -78,15 +78,17 @@ class PartSearch extends Component {
                         <Grid item className={classes.items}>
                             <SearchCountry />
                         </Grid>
+
                         <Grid item className={classes.items}>
                             <ButtonShuffle travel={this.getRandomCountry} />
                         </Grid>
+
                     </Grid>
                     <SlideInfos
-                            handleToUpdate={this.handleToUpdate}
-                            showSlide={this.state.showSlide}
-                            countryName={country}
-                        />
+                        handleToUpdate={this.handleToUpdate}
+                        showSlide={this.state.showSlide}
+                        countryName={country}
+                    />
 
                 </div>
             )
