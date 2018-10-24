@@ -9,27 +9,26 @@ const styles = theme => ({
   button: {
     margin: theme.spacing.unit,
   },
-  
+
   rightIcon: {
     marginLeft: theme.spacing.unit,
   },
 });
 
 function IconLabelButtons(props) {
-    const { classes } = props;
-    return (
-        <div>
-            <Button variant="contained" color="primary" className={classes.button}>
-                Send
-                <Icon className={classes.rightIcon}></Icon>
-            </Button>
-        </div>
-    );
-}    
+  const { classes } = props;
+  return (
+    <div>
+      <Button variant="contained" color="primary" className={classes.button}>
+        Send
+        <Icon className={classes.rightIcon} />
+      </Button>
+    </div>
+  );
+}
 
 IconLabelButtons.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(IconLabelButtons);
-

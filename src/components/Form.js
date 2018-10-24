@@ -19,9 +19,7 @@ const styles = theme => ({
     marginTop: 19,
   },
   menu: {
-
     width: '100vw',
-
   },
 });
 
@@ -40,19 +38,17 @@ const questions = [
   },
 ];
 
-
-
 class Form extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: '',
+      multiline: 'Controlled',
+      currency: '',
+    };
+  }
 
-  state = {
-    name: '',
-    // age: '',
-    multiline: 'Controlled',
-    currency: '',
-
-  };
-
-  handleChange = name => event => {
+  handleChange = name => (event) => {
     this.setState({
       [name]: event.target.value,
     });
@@ -60,7 +56,7 @@ class Form extends React.Component {
 
   render() {
     const { classes } = this.props;
-
+    const { currency } = this.state;
     return (
 
       <form className={classes.container} noValidate autoComplete="off">
@@ -86,7 +82,7 @@ class Form extends React.Component {
           select
           // label="Why"
           className={classes.textField}
-          value={this.state.currency}
+          value={currency}
           onChange={this.handleChange('currency')}
           SelectProps={{
             MenuProps: {
@@ -123,5 +119,3 @@ Form.propTypes = {
 };
 
 export default withStyles(styles)(Form);
-
-
