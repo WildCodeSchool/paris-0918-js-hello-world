@@ -49,7 +49,6 @@ const styles = theme => ({
     left: 10,
     fontSize: 14,
     color: '#315681',
-
   },
   paper: {
     position: 'absolute',
@@ -65,7 +64,6 @@ const styles = theme => ({
     borderRadius: '5px',
     marginTop: '2px',
     marginLeft: '20px',
-
   },
 });
 
@@ -118,7 +116,7 @@ function Option(props) {
       selected={props.isFocused}
       component="div"
       style={{
-        // backgroundColor: '#f3f8ff',
+        // backgroundColor: 'red',
         // backgroundColor: props.isSelected ? '#315681' : '#f3f8ff',
         fontWeight: props.isSelected ? 500 : 400,
       }}

@@ -12,10 +12,10 @@ import SearchBar from './SearchBar';
 const styles = () => ({
   root: {
     backgroundColor: '#aac9ee',
-    padding: '0.5vh',
+    // padding: '0.5vh',
   },
   items: {
-    margin: '0.5vh',
+    margin: '7px',
   },
 });
 

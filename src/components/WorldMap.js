@@ -1,3 +1,5 @@
+/* eslint-disable global-require */
+
 import React, { Component } from 'react';
 import {
   ComposableMap,
@@ -14,25 +16,21 @@ import ButtonLess from './ButtonLess';
 
 
 const styles = theme => ({
-  shadows: ['none'],
   root: {
     overflow: 'hidden',
   },
   worldMap: {
     [theme.breakpoints.up('xs')]: {
-      height: '68vh',
-      width: 'auto',
-    },
-    [theme.breakpoints.up('sm')]: {
-      height: '67vh',
+      minHeight: '76vh',
       width: 'auto',
     },
     [theme.breakpoints.up('md')]: {
-      height: '75vh',
-      width: 'auto',
+      width: '100vw',
     },
-    [theme.breakpoints.up('lg')]: {
-    },
+  },
+  buttonContainer: {
+    marginTop: '-70px',
+    marginBottom: '30px',
   },
 });
 
@@ -109,19 +107,19 @@ class WorldMap extends Component {
         <Grid
           container
           className={classes.root}
-          direction="row"
-          justify="center"
-          alignItems="flex-end"
-          spacing={8}
+          direction="column"
+          alignItems="center"
+          spacing={0}
         >
           <Grid item>
             <ComposableMap
               className={classes.worldMap}
               projectionConfig={{
-                scale: 405,
+                scale: 300,
               }}
             >
               <ZoomableGroup
+                center={[0, 45]}
                 zoom={zoomMap}
               >
                 {/* <Geographies geography={process.env.PUBLIC_URL + '/world-50m.json'}> */}
@@ -162,12 +160,22 @@ class WorldMap extends Component {
             </ComposableMap>
             <ReactTooltip />
           </Grid>
-          <Grid item onClick={this.handleZoomIn}>
-            <ButtonMore />
-          </Grid>
-          <Grid item onClick={this.handleZoomOut}>
-            <ButtonLess />
-          </Grid>
+          <div className={classes.buttonContainer}>
+            <Grid
+              container
+              direction="row"
+              justify="center"
+              alignItems="center"
+              spacing={16}
+            >
+              <Grid item onClick={this.handleZoomIn}>
+                <ButtonMore />
+              </Grid>
+              <Grid item onClick={this.handleZoomOut}>
+                <ButtonLess />
+              </Grid>
+            </Grid>
+          </div>
         </Grid>
         <SlideInfos
           handleToUpdate={this.handleToUpdate}

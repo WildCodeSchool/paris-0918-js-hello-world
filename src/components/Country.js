@@ -117,31 +117,31 @@ class Country extends Component {
           </Grid>
           <Grid item xs={12}>
             <p>
-              <span className={classes.titleInfos}>Continent ▻</span>
+              <span className={classes.titleInfos}>Continent ▻&nbsp;</span>
               {country.region}
             </p>
           </Grid>
           <Grid item xs={12}>
             <p>
-              <span className={classes.titleInfos}>Capital ▻</span>
+              <span className={classes.titleInfos}>Capital ▻&nbsp;</span>
               {country.capital}
             </p>
           </Grid>
           <Grid item xs={12}>
             <p>
-              <span className={classes.titleInfos}>Currency ▻</span>
+              <span className={classes.titleInfos}>Currency ▻&nbsp;</span>
               {country.currencies.map(currency => currency.name).join(',')}
             </p>
           </Grid>
           <Grid item xs={12}>
             <p>
-              <span className={classes.titleInfos}>Population ▻</span>
+              <span className={classes.titleInfos}>Population ▻&nbsp;</span>
               {this.formatNumber(country.population)}
             </p>
           </Grid>
           <Grid item xs={12}>
             <p>
-              <span className={classes.titleInfos}>Area ▻</span>
+              <span className={classes.titleInfos}>Area ▻&nbsp;</span>
               {this.formatNumber(country.area)}
               <span> km²</span>
             </p>

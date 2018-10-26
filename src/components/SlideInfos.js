@@ -6,13 +6,13 @@ import Slider from 'react-slick';
 import '../css/slick-theme.css';
 import ButtonClose from './ButtonClose';
 import Country from './Country';
-import Photo from './Photo';
+import GalleryPhoto from './GalleryPhoto';
 import Video from './Video';
 
 
 const styles = theme => ({
 
-  drawer: {
+  root: {
     height: '100%',
     backgroundColor: '#F3F8FF',
     [theme.breakpoints.up('xs')]: {
@@ -41,7 +41,7 @@ const styles = theme => ({
     color: '#fff',
     margin: 'O',
     padding: '0',
-    backgroundColor: 'rgba(170, 201, 238, 0.15)'
+    backgroundColor: 'rgba(170, 201, 238, 0.15)',
   },
   slide1: {
     height: 'auto',
@@ -69,7 +69,6 @@ class SlideInfos extends React.Component {
     });
   };
 
-
   render() {
     const {
       classes, countryName, showSlide, handleToUpdate,
@@ -93,7 +92,7 @@ class SlideInfos extends React.Component {
           anchor="right"
           open={showSlide}
         >
-          <div className={classes.drawer}>
+          <div className={classes.root}>
             <Grid
               container
               className={classes.containerButton}
@@ -127,14 +126,14 @@ class SlideInfos extends React.Component {
                   <div>
                     <h3>
                       <div className={classes.slide2}>
-                        {<Photo countryName={countryName} />}
+                        {<GalleryPhoto countryName={countryName} />}
                       </div>
                     </h3>
                   </div>
                   <div>
                     <h3>
                       <div className={classes.slide3}>
-                        <Video countryName={countryName} />
+                        {/* <Video countryName={countryName} /> */}
                       </div>
                     </h3>
                   </div>
