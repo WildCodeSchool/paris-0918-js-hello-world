@@ -1,7 +1,5 @@
-
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
@@ -42,14 +40,12 @@ const questions = [
 
 class TextFields extends React.Component {
   state = {
-    name: '',
     // age: '',
-    multiline: 'Controlled',
     currency: '',
 
   };
 
-  handleChange = name => event => {
+  handleChange = name => (event) => {
     this.setState({
       [name]: event.target.value,
     });
@@ -57,9 +53,9 @@ class TextFields extends React.Component {
 
   render() {
     const { classes } = this.props;
-
+    const { currency } = this.state;
     return (
-      <form className={classes.container} noValidate autoComplete="off">        
+      <form className={classes.container} noValidate autoComplete="off">
 
         <TextField
           required
@@ -82,7 +78,7 @@ class TextFields extends React.Component {
           select
           // label="Why"
           className={classes.textField}
-          value={this.state.currency}
+          value={currency}
           onChange={this.handleChange('currency')}
           SelectProps={{
             MenuProps: {
@@ -98,7 +94,6 @@ class TextFields extends React.Component {
             </MenuItem>
           ))}
         </TextField>
-        
         <TextField
           id="standard-multiline-static"
           label="Your message"
@@ -107,7 +102,6 @@ class TextFields extends React.Component {
           className={classes.textField}
           margin="normal"
         />
-                 
       </form>
     );
   }
@@ -118,4 +112,3 @@ TextFields.propTypes = {
 };
 
 export default withStyles(styles)(TextFields);
-

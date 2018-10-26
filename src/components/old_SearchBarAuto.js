@@ -2,30 +2,30 @@
 
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
-// import Autocomplete from "react-autocomplete";
+import Autocomplete from 'react-autocomplete';
 import { Grid } from '@material-ui/core';
 import ButtonShuffle from './ButtonShuffle';
-
 import SlideInfos from './SlideInfos';
-import SearchBar from './SearchBar';
 
-const styles = () => ({
+const styles = theme => ({
   root: {
     backgroundColor: '#aac9ee',
-    // padding: '0.5vh',
+    padding: '1vh',
   },
   items: {
-    margin: '7px',
+    margin: '1vw',
   },
 });
 
-class PartSearch extends Component {
+class SearchBarAuto extends Component {
   constructor(props) {
     super(props);
     this.state = {
       error: null,
       isLoaded: false,
       countries: undefined,
+      searchCountries: undefined,
+      country: '',
       showSlide: false,
     };
   }
@@ -38,6 +38,7 @@ class PartSearch extends Component {
           this.setState({
             isLoaded: true,
             countries: result,
+            searchCountries: result,
           });
         },
         (error) => {
@@ -47,6 +48,37 @@ class PartSearch extends Component {
           });
         },
       );
+  }
+
+
+  handleOnChange = (event, value) => {
+    const { countries } = this.state;
+    if (countries !== undefined) {
+      const newSearchCountries = countries.filter(c => c.name.toLowerCase()
+        .includes(value.toLowerCase()));
+      this.setState({
+        country: value,
+        searchCountries: newSearchCountries,
+      });
+    }
+  }
+
+  hanldeRenderItem = (item, isHighlighted) => {
+    const { country } = this.state;
+    if (country === undefined || country.length < 1) {
+      return <p />;
+    }
+    return (
+      <div style={{ background: isHighlighted ? 'lightgray' : 'white' }}>
+        {item.name}
+      </div>);
+  }
+
+  handleOnSelect = (val) => {
+    this.setState({
+      country: val,
+      showSlide: true,
+    });
   }
 
   handleToUpdate = () => {
@@ -65,20 +97,16 @@ class PartSearch extends Component {
 
   render() {
     const { classes } = this.props;
-
     const {
-      error, isLoaded, country, showSlide,
+      error, isLoaded, searchCountries, country, showSlide,
     } = this.state;
-
     if (error) {
       return (
         <div>
           Error:
           {error.message}
-        </div>
-      );
-    }
-    if (!isLoaded) {
+        </div>);
+    } if (!isLoaded) {
       return <div>Loading...</div>;
     }
     return (
@@ -91,23 +119,30 @@ class PartSearch extends Component {
           alignItems="center"
         >
           <Grid item className={classes.items}>
-            <SearchBar />
+            {/* Call Search Country */}
           </Grid>
-
           <Grid item className={classes.items}>
             <ButtonShuffle travel={this.getRandomCountry} />
           </Grid>
-
+          <Autocomplete
+            inputProps={{ id: 'countries-autocomplete' }}
+            getItemValue={item => item.name}
+            items={searchCountries}
+            renderItem={this.hanldeRenderItem}
+            value={country}
+            onChange={this.handleOnChange}
+            onSelect={this.handleOnSelect}
+          />
+          <SlideInfos
+            handleToUpdate={this.handleToUpdate}
+            showSlide={showSlide}
+            countryName={country}
+          />
         </Grid>
-        <SlideInfos
-          handleToUpdate={this.handleToUpdate}
-          showSlide={showSlide}
-          countryName={country}
-        />
 
       </div>
     );
   }
 }
 
-export default withStyles(styles)(PartSearch);
+export default withStyles(styles)(SearchBarAuto);

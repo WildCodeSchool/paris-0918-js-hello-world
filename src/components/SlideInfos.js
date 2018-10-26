@@ -2,20 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { Drawer, Grid } from '@material-ui/core';
-import Slider from "react-slick";
-import "../css/slick-theme.css"
+import Slider from 'react-slick';
+import '../css/slick-theme.css';
 import ButtonClose from './ButtonClose';
 import Country from './Country';
-import Photo from './Photo';
+import GalleryPhoto from './GalleryPhoto';
 import Video from './Video';
-
-
 
 
 const styles = theme => ({
 
-  drawer: {
-    height: '100vh',
+  root: {
+    height: '100%',
     backgroundColor: '#F3F8FF',
     [theme.breakpoints.up('xs')]: {
       width: '100vw',
@@ -27,12 +25,12 @@ const styles = theme => ({
       width: '50vw',
     },
     [theme.breakpoints.up('lg')]: {
-      width: '40vw'
+      width: '40vw',
     },
   },
   // Button close
   button: {
-    margin: '1.5vh'
+    margin: '1.5vh',
   },
   containerButton: {
     backgroundColor: '#aac9ee',
@@ -40,27 +38,20 @@ const styles = theme => ({
   // Part slide
   slide: {
     width: '80%',
-    //marginTop:'5%',
     color: '#fff',
-    margin:'O',
-    padding:'0',
-    backgroundColor: 'rgba(170, 201, 238, 0.15)'
+    margin: 'O',
+    padding: '0',
+    backgroundColor: 'rgba(170, 201, 238, 0.15)',
   },
   slide1: {
     height: 'auto',
     color: '#6AC0FF',
-    //backgroundColor: '#aac9ee',
-    //border: 'solid 1px #aac9ee'
   },
   slide2: {
     height: '50vh',
-    //backgroundColor: '#aac9ee',
-    //border: 'solid 1px #aac9ee'
   },
   slide3: {
     height: '50vh',
-    //backgroundColor: '#aac9ee',
-    //border: 'solid 1px #aac9ee'
   },
 });
 
@@ -78,12 +69,12 @@ class SlideInfos extends React.Component {
     });
   };
 
-
-  // RENDER
   render() {
-    const { classes, countryName } = this.props;
+    const {
+      classes, countryName, showSlide, handleToUpdate,
+    } = this.props;
     const { index } = this.state;
-    //Settings slick
+    // Settings slick
     const settings = {
       dots: true,
       infinite: false,
@@ -99,14 +90,17 @@ class SlideInfos extends React.Component {
         <Drawer
           docked="false"
           anchor="right"
-          open={this.props.showSlide}
+          open={showSlide}
         >
-          <div className={classes.drawer}>
-            <Grid container className={classes.containerButton}
+          <div className={classes.root}>
+            <Grid
+              container
+              className={classes.containerButton}
               direction="row"
               justify="center"
-              alignItems="center">
-              <Grid item className={classes.button} onClick={() => this.props.handleToUpdate()}>
+              alignItems="center"
+            >
+              <Grid item className={classes.button} onClick={() => handleToUpdate()}>
                 <ButtonClose />
               </Grid>
             </Grid>
@@ -115,27 +109,40 @@ class SlideInfos extends React.Component {
               direction="column"
               justify="center"
               alignItems="center"
-              >
-              <Grid  item className={classes.slide}>
-                <Slider {...settings}
+            >
+              <Grid item className={classes.slide}>
+                <Slider
+                  {...settings}
                   onChange={this.handleChange}
                   value={index}
                 >
                   <div>
-                    <h3><div className={classes.slide1}>{<Country countryName={countryName} />}</div></h3>
+                    <h3>
+                      <div className={classes.slide1}>
+                        {<Country countryName={countryName} />}
+                      </div>
+                    </h3>
                   </div>
                   <div>
-                    <h3><div className={classes.slide2}>{<Photo countryName={countryName} />}</div></h3>
+                    <h3>
+                      <div className={classes.slide2}>
+                        {<GalleryPhoto countryName={countryName} />}
+                      </div>
+                    </h3>
                   </div>
                   <div>
-                    <h3><div className={classes.slide3}>{/*<Video countryName={this.props.countryName} />*/}</div></h3>
+                    <h3>
+                      <div className={classes.slide3}>
+                        {/* <Video countryName={countryName} /> */}
+                      </div>
+                    </h3>
                   </div>
                 </Slider>
               </Grid>
             </Grid>
           </div>
         </Drawer>
-      </div >
+      </div>
 
     );
   }

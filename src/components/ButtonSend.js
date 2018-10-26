@@ -1,35 +1,40 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
-import Icon from '@material-ui/core/Icon';
+import IconSend from '@material-ui/icons/Send';
 
 
-const styles = theme => ({
+const styles = {
   button: {
-    margin: theme.spacing.unit,
+    backgroundColor: '#5883b5',
+    padding: 0,
+    width: '100px',
+    '&:hover': {
+      backgroundColor: '#5883b5',
+      opacity: '0.2',
+    },
   },
-  
-  rightIcon: {
-    marginLeft: theme.spacing.unit,
+  buttonText: {
+    color: '#FFF',
   },
-});
-
-function IconLabelButtons(props) {
-    const { classes } = props;
-    return (
-        <div>
-            <Button variant="contained" color="primary" className={classes.button}>
-                Send
-                <Icon className={classes.rightIcon}></Icon>
-            </Button>
-        </div>
-    );
-}    
-
-IconLabelButtons.propTypes = {
-  classes: PropTypes.object.isRequired,
+  icon: {
+    color: '#FFF',
+    marginLeft: 7,
+  },
 };
 
-export default withStyles(styles)(IconLabelButtons);
+class ButtonSend extends React.Component {
+  render() {
+    const { classes } = this.props;
+    return (
+      <Button className={classes.button} variant="text">
+        <p className={classes.buttonText}>
+          Send
+        </p>
+        <IconSend className={classes.icon} />
+      </Button>
+    );
+  }
+}
 
+export default withStyles(styles)(ButtonSend);
