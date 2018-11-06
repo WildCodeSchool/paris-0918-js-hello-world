@@ -2,8 +2,19 @@
 
 import React, { Component } from 'react';
 import YouTube from 'react-youtube';
+import { withStyles } from '@material-ui/core/styles';
 import '../css/Header.css';
 import { Grid } from '@material-ui/core';
+import ButtonLetsGo from './ButtonLetsGo';
+
+const styles = theme => ({
+  videoYT: {
+    height: 'auto',
+    width: '90%',
+    margin: '5%',
+    marginTop: 0,
+  },
+});
 
 class Video extends Component {
   constructor(props) {
@@ -18,7 +29,7 @@ class Video extends Component {
 
   componentDidMount() {
     const { findCountryName } = this.state;
-    const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&key=AIzaSyC_kX9In6aA3pSlkHV7kkT10iuSx86EiGs&maxResults=1&q=travel${findCountryName}`;
+    const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&key=${process.env.REACT_APP_YoutubeToken}&maxResults=1&q=travel${findCountryName}`;
     fetch(url)
       .then(res => res.json())
       .then(
@@ -47,9 +58,10 @@ class Video extends Component {
 
 
   render() {
+    const { classes } = this.props;
     const opts = {
       height: 'auto',
-      width: 'auto',
+      width: '100%',
       playerVars: { // https://developers.google.com/youtube/player_parameters
         autoplay: 1,
       },
@@ -71,22 +83,25 @@ class Video extends Component {
       );
     }
     return (
-      <div>
-        <Grid
-          container
-          direction="row"
-          justify="center"
-          alignItems="center"
-        >
+      <Grid
+        container
+        direction="column"
+        justify="center"
+        alignItems="center"
+      >
+        <Grid item className={classes.videoYT}>
           <YouTube
             videoId={myVideo.id.videoId}
             opts={opts}
             onReady={this.onReady}
           />
         </Grid>
-      </div>
+        <Grid item>
+          <ButtonLetsGo />
+        </Grid>
+      </Grid>
     );
   }
 }
 
-export default Video;
+export default withStyles(styles)(Video);

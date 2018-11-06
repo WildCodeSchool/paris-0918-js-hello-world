@@ -3,20 +3,24 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
 import SlideForm from './SlideForm';
+import SlideQuiz from './SlideQuiz';
+
 import ButtonContact from './ButtonContact';
+import ButtonQuiz from './ButtonQuiz';
 
 const styles = theme => ({
   header: {
     backgroundColor: '#7FBAFF',
     color: '#FFF',
     textAlign: 'center',
-    padding: 8,
+    paddingTop: 8,
+    paddingBottom: 8,
+
   },
   logo: {
-    width: 'auto',
+    maxWidth: '65vw',
     height: 'max-content',
     [theme.breakpoints.up('sm')]: {
-      marginLeft: '16.5vw',
     },
   },
 });
@@ -26,15 +30,15 @@ class Header extends Component {
     super(props);
     this.state = {
       showSlide: false,
+      showSlideQuiz: false,
     };
   }
 
-  // handleToggle = () => this.setState({ open: !this.state.open })
-
-  // handleClose = () => this.setState({ showSlide: false });
-
   handleToUpdate = () => {
-    this.setState({ showSlide: false });
+    this.setState({
+      showSlide: false,
+      showSlideQuiz: false,
+    });
   }
 
   handleOpenSlide = () => {
@@ -43,9 +47,15 @@ class Header extends Component {
     });
   };
 
+  handleOpenSlideQuiz = () => {
+    this.setState({
+      showSlideQuiz: true,
+    });
+  };
+
   render() {
     const { classes } = this.props;
-    const { showSlide } = this.state;
+    const { showSlide, showSlideQuiz } = this.state;
     return (
       <div className={classes.header}>
         <Grid
@@ -59,7 +69,14 @@ class Header extends Component {
         >
           <Grid
             item
-            xs={10}
+            xs={2}
+            onClick={this.handleOpenSlideQuiz}
+          >
+            <ButtonQuiz />
+          </Grid>
+          <Grid
+            item
+            xs={8}
           >
             <img className={classes.logo} src={require('../images/Logo.svg')} alt="Logo" />
           </Grid>
@@ -75,6 +92,10 @@ class Header extends Component {
           <SlideForm
             handleToUpdate={this.handleToUpdate}
             showSlide={showSlide}
+          />
+          <SlideQuiz
+            handleToUpdate={this.handleToUpdate}
+            showSlide={showSlideQuiz}
           />
         </div>
       </div>

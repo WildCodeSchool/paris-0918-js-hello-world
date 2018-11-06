@@ -6,6 +6,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
 import ButtonShuffle from './ButtonShuffle';
 
+
 import SlideInfos from './SlideInfos';
 import SearchBar from './SearchBar';
 
@@ -15,7 +16,7 @@ const styles = () => ({
     // padding: '0.5vh',
   },
   items: {
-    margin: '7px',
+    margin: '8px',
   },
 });
 
@@ -93,7 +94,6 @@ class PartSearch extends Component {
           <Grid item className={classes.items}>
             <SearchBar />
           </Grid>
-
           <Grid item className={classes.items}>
             <ButtonShuffle travel={this.getRandomCountry} />
           </Grid>

@@ -6,8 +6,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 const styles = () => ({
   root: {
-    flexGrow: '1',
-    fontSize: '1.1em',
+    fontSize: 'medium',
     color: '#315681',
     margin: 0,
     padding: 0,
@@ -108,43 +107,43 @@ class Country extends Component {
           spacing={0}
         >
           <Grid item xs={12}>
-            <p>
+            <h3>
               {country.name}
-            </p>
+            </h3>
           </Grid>
           <Grid item xs={12}>
             <img className={classes.imgFlag} src={country.flag} alt="Flag" />
           </Grid>
           <Grid item xs={12}>
-            <p>
+            <h3>
               <span className={classes.titleInfos}>Continent ▻&nbsp;</span>
               {country.region}
-            </p>
+            </h3>
           </Grid>
           <Grid item xs={12}>
-            <p>
+            <h3>
               <span className={classes.titleInfos}>Capital ▻&nbsp;</span>
               {country.capital}
-            </p>
+            </h3>
           </Grid>
           <Grid item xs={12}>
-            <p>
+            <h3>
               <span className={classes.titleInfos}>Currency ▻&nbsp;</span>
               {country.currencies.map(currency => currency.name).join(',')}
-            </p>
+            </h3>
           </Grid>
           <Grid item xs={12}>
-            <p>
+            <h3>
               <span className={classes.titleInfos}>Population ▻&nbsp;</span>
               {this.formatNumber(country.population)}
-            </p>
+            </h3>
           </Grid>
           <Grid item xs={12}>
-            <p>
+            <h3>
               <span className={classes.titleInfos}>Area ▻&nbsp;</span>
               {this.formatNumber(country.area)}
               <span> km²</span>
-            </p>
+            </h3>
           </Grid>
         </Grid>
       </div>
