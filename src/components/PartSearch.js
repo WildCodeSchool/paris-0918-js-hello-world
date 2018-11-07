@@ -1,13 +1,11 @@
 /* global fetch:false */
-
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
-// import Autocomplete from "react-autocomplete";
 import { Grid } from '@material-ui/core';
 import ButtonShuffle from './ButtonShuffle';
-
 import SlideInfos from './SlideInfos';
 import SearchBar from './SearchBar';
+import Loader from './Loader';
 
 const styles = () => ({
   root: {
@@ -15,7 +13,7 @@ const styles = () => ({
     // padding: '0.5vh',
   },
   items: {
-    margin: '7px',
+    margin: '1%',
   },
 });
 
@@ -79,7 +77,7 @@ class PartSearch extends Component {
       );
     }
     if (!isLoaded) {
-      return <div>Loading...</div>;
+      return <div><Loader /></div>;
     }
     return (
       <div>
@@ -89,11 +87,11 @@ class PartSearch extends Component {
           direction="row"
           justify="center"
           alignItems="center"
+          wrap="nowrap"
         >
           <Grid item className={classes.items}>
             <SearchBar />
           </Grid>
-
           <Grid item className={classes.items}>
             <ButtonShuffle travel={this.getRandomCountry} />
           </Grid>

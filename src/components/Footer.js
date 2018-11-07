@@ -8,11 +8,8 @@ class Footer extends React.Component {
       <div>
         <footer className="foot">
           <div className="text">
-            <p>Copyright © 2018 HelloWorld // Contact</p>
+            <p>Copyright © 2018 HelloWorld</p>
             <p>
-              &nbsp;
-                API used:
-              &nbsp;
               <a href="https://restcountries.eu">
                 Rest countries
               </a>

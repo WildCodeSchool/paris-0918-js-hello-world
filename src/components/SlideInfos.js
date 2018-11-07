@@ -11,7 +11,6 @@ import Video from './Video';
 
 
 const styles = theme => ({
-
   root: {
     height: '100%',
     backgroundColor: '#F3F8FF',
@@ -30,28 +29,16 @@ const styles = theme => ({
   },
   // Button close
   button: {
-    margin: '1.5vh',
+    margin: '1vh',
   },
   containerButton: {
     backgroundColor: '#aac9ee',
   },
   // Part slide
-  slide: {
+  slideSolo: {
+    height: '100%',
     width: '80%',
-    color: '#fff',
-    margin: 'O',
-    padding: '0',
     backgroundColor: 'rgba(170, 201, 238, 0.15)',
-  },
-  slide1: {
-    height: 'auto',
-    color: '#6AC0FF',
-  },
-  slide2: {
-    height: '50vh',
-  },
-  slide3: {
-    height: '50vh',
   },
 });
 
@@ -106,36 +93,20 @@ class SlideInfos extends React.Component {
             </Grid>
             <Grid
               container
-              direction="column"
+              direction="row"
               justify="center"
               alignItems="center"
             >
-              <Grid item className={classes.slide}>
+              <Grid item className={classes.slideSolo}>
                 <Slider
                   {...settings}
                   onChange={this.handleChange}
                   value={index}
                 >
+                  <div><Country countryName={countryName} /></div>
                   <div>
-                    <h3>
-                      <div className={classes.slide1}>
-                        {<Country countryName={countryName} />}
-                      </div>
-                    </h3>
-                  </div>
-                  <div>
-                    <h3>
-                      <div className={classes.slide2}>
-                        {<GalleryPhoto countryName={countryName} />}
-                      </div>
-                    </h3>
-                  </div>
-                  <div>
-                    <h3>
-                      <div className={classes.slide3}>
-                        {/* <Video countryName={countryName} /> */}
-                      </div>
-                    </h3>
+                    <GalleryPhoto countryName={countryName} />
+                    <Video countryName={countryName} />
                   </div>
                 </Slider>
               </Grid>
