@@ -151,7 +151,7 @@ class WorldMap extends Component {
                           outline: 'none',
                         },
                       }}
-                      onClick={this.handleGeographyClick}
+                      onFocus={this.handleGeographyClick}
                       onDoubleClick={this.handleDoubleClick}
                     />
                   ))}
