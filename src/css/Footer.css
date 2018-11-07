@@ -1,0 +1,17 @@
+.foot{
+    height: auto;
+    width: 100%;
+    text-align: center;
+    background-color: #7FBAFF;
+    padding: 0.5%;
+}
+
+.text{
+    color: #f3f8ff;
+    font-size: small;
+}
+
+a{
+    /*text-decoration: none;*/
+    color: #f3f8ff
+}

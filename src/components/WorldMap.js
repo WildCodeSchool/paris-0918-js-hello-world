@@ -1,153 +1,190 @@
+/* eslint-disable global-require */
 
-import React, { Component } from "react"
+import React, { Component } from 'react';
 import {
   ComposableMap,
   ZoomableGroup,
   Geographies,
   Geography,
-} from "react-simple-maps"
-import ReactTooltip from "react-tooltip"
+} from 'react-simple-maps';
+import { withStyles } from '@material-ui/core/styles';
+import ReactTooltip from 'react-tooltip';
+import { Grid } from '@material-ui/core';
+import SlideInfos from './SlideInfos';
+import ButtonMore from './ButtonMore';
+import ButtonLess from './ButtonLess';
 
-import Country from './Country' // componant prive
-import Photos from './Photo'
-import Modal from 'react-modal';
-import Video from './Youtube'
 
-const wrapperStyles = {
-  width: "100%",
-  maxWidth:"100%",
-  margin: "0 auto",
-}
+const styles = theme => ({
+  root: {
+    overflow: 'hidden',
+  },
+  worldMap: {
+    [theme.breakpoints.up('xs')]: {
+      minHeight: '76vh',
+      width: 'auto',
+    },
+    [theme.breakpoints.up('md')]: {
+      width: '100vw',
+    },
+  },
+  buttonContainer: {
+    marginTop: '-70px',
+    marginBottom: '30px',
+  },
+});
 
-class BasicMap extends Component {
+
+class WorldMap extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedCountryName: "",
-      showModal: false,
-      zoom: 1
+      selectedCountryName: '',
+      showSlide: false,
+      zoomMap: 1,
     };
-    this.handleZoomIn = this.handleZoomIn.bind(this)
-    this.handleZoomOut = this.handleZoomOut.bind(this)
+    this.handleZoomIn = this.handleZoomIn.bind(this);
+    this.handleZoomOut = this.handleZoomOut.bind(this);
   }
 
   componentDidMount() {
     setTimeout(() => {
-      ReactTooltip.rebuild()
-    }, 100)
-
+      ReactTooltip.rebuild();
+    }, 100);
   }
 
-  // handler the click event of the map
+  // Click on country
   handleGeographyClick = (geography) => {
     this.setState({
       selectedCountryName: geography.properties.name,
-      showModal: true
-    })
+    });
   }
 
-  // handler the click event on modal to close modal
-  closeModal = () => {
+  // Double Click on country
+  handleDoubleClick = () => {
     this.setState({
-      showModal: false
-    })
+      showSlide: true,
+    });
+  };
+
+  handleToUpdate = () => {
+    this.setState({ showSlide: false });
   }
+
+  // Zoom map
   handleZoomIn() {
-    if (this.state.zoom===3.375) {
+    const { zoomMap } = this.state;
+    if (zoomMap === 3.375) {
       this.setState({
-        zoom: this.state.zoom,
-      })
-    }
-    else{
+        zoomMap: 3.375,
+      });
+    } else {
       this.setState({
-        zoom: this.state.zoom * 1.5,
-      })
+        zoomMap: zoomMap * 1.5,
+      });
     }
   }
+
   handleZoomOut() {
-    if (this.state.zoom===1) {
+    const { zoomMap } = this.state;
+    if (zoomMap === 1) {
       this.setState({
-        zoom: this.state.zoom,
-      })
-    }
-    else{
+        zoomMap: 1,
+      });
+    } else {
       this.setState({
-        zoom: this.state.zoom / 1.5,
-      })
+        zoomMap: zoomMap / 1.5,
+      });
     }
   }
+
 
   render() {
+    const { classes } = this.props;
+    const { zoomMap, showSlide, selectedCountryName } = this.state;
     return (
-      <div style={wrapperStyles}>
-        <button onClick={this.handleZoomIn}>{"Zoom in"}</button>
-        <button onClick={this.handleZoomOut}>{"Zoom out"}</button>
-        <ComposableMap
-          projectionConfig={{
-            scale: 205,
-          }}
-          width={980}
-          height={551}
-          style={{
-            width: "100%",
-            height: "auto",
-          }}
+      <div>
+        <Grid
+          container
+          className={classes.root}
+          direction="column"
+          alignItems="center"
+          spacing={0}
         >
-          <ZoomableGroup zoom={ this.state.zoom }>
-            {/* <Geographies geography={process.env.PUBLIC_URL + '/world-50m.json'}> */}
-            <Geographies geography={require('../images/world-50m.json')}>
+          <Grid item>
+            <ComposableMap
+              className={classes.worldMap}
+              projectionConfig={{
+                scale: 300,
+              }}
+            >
+              <ZoomableGroup
+                center={[0, 45]}
+                zoom={zoomMap}
+              >
+                {/* <Geographies geography={process.env.PUBLIC_URL + '/world-50m.json'}> */}
+                <Geographies geography={require('../images/world-50m.json')}>
 
-              {(geographies, projection) => geographies.map((geography, i) => geography.id !== "ATA" && (
-                <Geography
-                  key={i}
-                  data-tip={geography.properties.name}
-                  geography={geography}
-                  projection={projection}
-                  style={{
-                    default: {
-                      fill: "#F3F8FF",
-                      stroke: "#7FBAFF",
-                      strokeWidth: 0.75,
-                      outline: "none",
-                    },
-                    hover: {
-                      fill: "#7FBAFF",
-                      stroke: "#7FBAFF",
-                      strokeWidth: 0.75,
-                      outline: "none",
-                    },
-                    pressed: {
-                      fill: "#FF5722",
-                      stroke: "##7FBAFF",
-                      strokeWidth: 0.75,
-                      outline: "none",
-                    },
-                  }}
-                  onClick={this.handleGeographyClick} // call handleGeographyClick when the map is clicked
-                />
-              ))}
-            </Geographies>
-          </ZoomableGroup>
-        </ComposableMap>
-        <ReactTooltip />
-
-        {/* Modal to display country */}
-        <Modal isOpen={this.state.showModal}  >
-          <div onClick={this.closeModal} >
-            <Country countryName={this.state.selectedCountryName} />
+                  {(geographies, projection) => geographies.map((geography, i) => geography.id !== 'ATA' && (
+                    <Geography
+                      key={i}
+                      data-tip={geography.properties.name}
+                      geography={geography}
+                      projection={projection}
+                      style={{
+                        default: {
+                          fill: '#F3F8FF',
+                          stroke: '#7FBAFF',
+                          strokeWidth: 0.75,
+                          outline: 'none',
+                        },
+                        hover: {
+                          fill: '#7FBAFF',
+                          stroke: '#7FBAFF',
+                          strokeWidth: 0.75,
+                          outline: 'none',
+                        },
+                        pressed: {
+                          fill: '#315681',
+                          stroke: '##7FBAFF',
+                          strokeWidth: 0.75,
+                          outline: 'none',
+                        },
+                      }}
+                      onClick={this.handleGeographyClick}
+                      onDoubleClick={this.handleDoubleClick}
+                    />
+                  ))}
+                </Geographies>
+              </ZoomableGroup>
+            </ComposableMap>
+            <ReactTooltip />
+          </Grid>
+          <div className={classes.buttonContainer}>
+            <Grid
+              container
+              direction="row"
+              justify="center"
+              alignItems="center"
+              spacing={16}
+            >
+              <Grid item onClick={this.handleZoomIn}>
+                <ButtonMore />
+              </Grid>
+              <Grid item onClick={this.handleZoomOut}>
+                <ButtonLess />
+              </Grid>
+            </Grid>
           </div>
-          <div>
-            <Photos countryName={this.state.selectedCountryName} />
-          </div>
-          <div>
-            <Video />
-          </div>
-        </Modal>
-
+        </Grid>
+        <SlideInfos
+          handleToUpdate={this.handleToUpdate}
+          showSlide={showSlide}
+          countryName={selectedCountryName}
+        />
       </div>
-
-    )
+    );
   }
 }
 
-export default BasicMap;
+export default withStyles(styles)(WorldMap);

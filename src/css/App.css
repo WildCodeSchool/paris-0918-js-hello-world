@@ -13,7 +13,6 @@
   padding: 20px;
   color: white;
 }
-
 .App-title {
   font-size: 1.5em;
 }
@@ -25,4 +24,17 @@
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+@font-face {
+  font-family: 'SumberJaya';
+  font-style: normal;
+  font-weight: 400;
+  src:
+    local('SumberJaya'),
+    url(../fonts/SumberJaya.otf) format('opentype');
+}
+
+html {
+  font-family: 'Roboto', sans-serif;
 }

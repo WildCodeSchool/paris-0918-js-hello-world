@@ -1,58 +1,156 @@
-import React, { Component } from "react"
+/* global fetch:false */
+
+import React, { Component } from 'react';
+import { Grid } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
+import Loader from './Loader';
+
+const styles = () => ({
+  root: {
+    fontSize: 'medium',
+    color: '#315681',
+    margin: 0,
+    padding: 0,
+
+  },
+  imgFlag: {
+    width: '60%',
+    marginLeft: '20%',
+  },
+  titleName: {
+    textAlign: 'center',
+    fontSize: '1.2em',
+  },
+  titleInfos: {
+    fontWeight: '500',
+  },
+  text: {
+    textAlign: 'center',
+  },
+
+});
+
 class Country extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            error: null,
-            isLoaded: false,
-            country: undefined,
-            findCountryName: props.countryName
-        };
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      error: null,
+      isLoaded: false,
+      country: undefined,
+      findCountryName: props.countryName,
+    };
+  }
 
-    componentDidMount() {
-        let url = "https://restcountries.eu/rest/v2/name/" + this.state.findCountryName; 
-        fetch(url)
-            .then(res => res.json())
-            .then(
-                (result) => {
-                    this.setState({
-                        isLoaded: true,
-                        country: result[0]
-                    });
-                },
-                // Note: it's important to handle errors here
-                // instead of a catch() block so that we don't swallow
-                // exceptions from actual bugs in components.
-                (error) => {
-                    this.setState({
-                        isLoaded: true,
-                        error
-                    });
-                }
-            )
-    }
+  componentDidMount() {
+    const { findCountryName } = this.state;
+    const url = `https://restcountries.eu/rest/v2/name/${findCountryName}`;
+    fetch(url)
+      .then(res => res.json())
+      .then(
+        (result) => {
+          this.setState({
+            isLoaded: true,
+            country: result[0],
+          });
+        },
+        // Note: it's important to handle errors here
+        // instead of a catch() block so that we don't swallow
+        // exceptions from actual bugs in components.
+        (error) => {
+          this.setState({
+            isLoaded: true,
+            error,
+          });
+        },
+      );
+  }
 
-    render() {
-        const { error, isLoaded, country, findCountryName } = this.state;
-        if (error) {
-            return <div>Error: {error.message}</div>;
-        } else if (!isLoaded) {
-            return <div>Loading...</div>;
-        } else {
-            return (
-                    <div key={country.name}>
-                        <h2> {country.name} </h2>
-                        <h3>{country.region}</h3>
-                        <img src = {country.flag} width="200px" alt="Flag"></img> 
-                        <h3>{country.capital}</h3>
-                        <h3>Monnaie: {country.currencies.map(currency => currency.code).join(",")}</h3>
-                        <h3>Population: {country.population} habitants</h3> 
-                        <h3>Supercitie:{country.area}km² </h3> 
-                    </div>
-            );
+  /**
+   * Format number: add , (111,111,111)
+   * @param number
+   */
+  formatNumber = (n) => {
+    if (n) {
+      return n.toString().split('').reverse().map((e, i) => {
+        if (i % 3 === 0 && i !== 0) {
+          e += ',';
         }
+        return e;
+      })
+        .reverse()
+        .join('');
     }
+    return '';
+  }
+
+  render() {
+    const { classes } = this.props;
+    const { error, isLoaded, country } = this.state;
+    if (error) {
+      return (
+        <div>
+          Error:
+          {error.message}
+        </div>
+      );
+    } if (!isLoaded) {
+      return <div><Loader /></div>;
+    }
+    return (
+      <div key={country.name} className={classes.root}>
+        <Grid
+          className={classes.titleName}
+          container
+          direction="column"
+          justify="center"
+          alignItems="center"
+          alignContent="flex-start"
+          spacing={0}
+        >
+          <Grid item xs={12}>
+            <h3>
+              {country.name}
+            </h3>
+          </Grid>
+          <Grid item xs={12}>
+            <img className={classes.imgFlag} src={country.flag} alt="Flag" />
+          </Grid>
+          <Grid item xs={12}>
+            <h3>
+              <span className={classes.titleInfos}>Continent ▻&nbsp;</span>
+              {country.region}
+            </h3>
+          </Grid>
+          <Grid item xs={12}>
+            <h3>
+              <span className={classes.titleInfos}>Capital ▻&nbsp;</span>
+              {country.capital}
+            </h3>
+          </Grid>
+          <Grid item xs={12}>
+            <h3>
+              <span className={classes.titleInfos}>Currency ▻&nbsp;</span>
+              {country.currencies.map(currency => currency.name).join(',')}
+            </h3>
+          </Grid>
+          <Grid item xs={12}>
+            <h3>
+              <span className={classes.titleInfos}>Population ▻&nbsp;</span>
+              {this.formatNumber(country.population)}
+            </h3>
+          </Grid>
+          <Grid item xs={12}>
+            <h3>
+              <span className={classes.titleInfos}>Area ▻&nbsp;</span>
+              {this.formatNumber(country.area)}
+              <span> km²</span>
+            </h3>
+          </Grid>
+        </Grid>
+      </div>
+    );
+  }
 }
 
-export default Country
+
+export default withStyles(styles)(Country);
