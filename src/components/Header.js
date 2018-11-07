@@ -4,7 +4,6 @@ import { withStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
 import SlideForm from './SlideForm';
 import SlideQuiz from './SlideQuiz';
-
 import ButtonContact from './ButtonContact';
 import ButtonQuiz from './ButtonQuiz';
 
@@ -19,7 +18,7 @@ const styles = theme => ({
   },
   logo: {
     maxWidth: '65vw',
-    height: 'max-content',
+    height: '5vh',
     [theme.breakpoints.up('sm')]: {
     },
   },
