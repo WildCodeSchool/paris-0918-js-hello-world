@@ -4,8 +4,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { GridList, GridListTile } from '@material-ui/core';
-
 import Lightbox from 'react-images';
+import Loader from './Loader';
 
 const styles = theme => ({
   root: {
@@ -35,7 +35,8 @@ class GalleryPhoto extends Component {
 
   componentDidMount() {
     const { findCountryPhoto } = this.state;
-    const api = 'https://pixabay.com/api/?key=10254779-b58df8361cdd84c5b8f150886&page=1&per_page=9&image_type=photo&pretty=true&category=travel&q=tourist+';
+    // const api = `https://pixabay.com/api/?key=${process.env.REACT_APP_PixabayToken}&page=1&per_page=9&image_type=photo&pretty=true&category=travel&q=tourist+`;
+    const api = `https://www.googleapis.com/customsearch/v1?key=${process.env.REACT_APP_GoogleImageToken}&searchType=image&imgType:photo&imgSize:large&num=9&q=tourism%20country%20landscape`;
     const url = api + findCountryPhoto;
     fetch(url)
       .then(res => res.json())
@@ -43,7 +44,10 @@ class GalleryPhoto extends Component {
         (result) => {
           this.setState({
             isLoaded: true,
-            photosRes: result.hits,
+            // Pixabay
+            // photosRes: result.hits,
+            // GoogleImage
+            photosRes: result.items,
           });
         },
         (error) => {
@@ -105,7 +109,7 @@ class GalleryPhoto extends Component {
         </div>
       );
     } if (!isLoaded) {
-      return <div>Loading...</div>;
+      return <div><Loader /></div>;
     }
     return (
       <div key={photosRes.name}>
@@ -113,8 +117,11 @@ class GalleryPhoto extends Component {
           <GridList cellHeight={100} className={classes.gridList} cols={3} spacing={0}>
             {photosRes.map((photo, i) => (
               <GridListTile key={i} onClick={e => this.openLightbox(i, e)}>
-                <img src={photo.largeImageURL} alt={photo.title} />
-                {imgLightbox.push({ src: photo.largeImageURL })}
+                {/* <img src={photo.largeImageURL} alt={photo.title} />
+                {imgLightbox.push({ src: photo.largeImageURL })} */}
+                <img src={photo.link} alt={photo.title} />
+                {imgLightbox.push({ src: photo.link })}
+
               </GridListTile>
             ))}
             <Lightbox
@@ -135,6 +142,7 @@ class GalleryPhoto extends Component {
 }
 GalleryPhoto.propTypes = {
   classes: PropTypes.object.isRequired,
+  countryName: PropTypes.string.isRequired,
 };
 
 export default withStyles(styles)(GalleryPhoto);

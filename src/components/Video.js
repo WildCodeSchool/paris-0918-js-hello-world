@@ -6,6 +6,7 @@ import { withStyles } from '@material-ui/core/styles';
 import '../css/Header.css';
 import { Grid } from '@material-ui/core';
 import ButtonLetsGo from './ButtonLetsGo';
+import Loader from './Loader';
 
 const styles = theme => ({
   videoYT: {
@@ -77,9 +78,7 @@ class Video extends Component {
     }
     if (!isLoaded) {
       return (
-        <div>
-          Loading...
-        </div>
+        <div><Loader /></div>
       );
     }
     return (

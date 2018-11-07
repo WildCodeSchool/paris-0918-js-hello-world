@@ -3,6 +3,7 @@ import { Grid } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import AnswerOption from './AnswerOption';
 import ButtonRestart from './ButtonRestart';
+import Loader from './Loader';
 
 const styles = {
   root: {
@@ -88,7 +89,7 @@ class Question extends React.Component {
 
 
   render() {
-    const { classes, handleToShowButtonRestart } = this.props;
+    const { classes } = this.props;
     const {
       error, isLoading, quiz, indexQuiz, cpt,
     } = this.state;
@@ -112,7 +113,7 @@ class Question extends React.Component {
           {error.message}
         </div>);
     } if (isLoading) {
-      return <div>Loading...</div>;
+      return <div><Loader /></div>;
     }
     return (
       <div>

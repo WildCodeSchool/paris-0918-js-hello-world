@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import { Grid } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
+import Loader from './Loader';
 
 const styles = () => ({
   root: {
@@ -93,7 +94,7 @@ class Country extends Component {
         </div>
       );
     } if (!isLoaded) {
-      return <div>Loading...</div>;
+      return <div><Loader /></div>;
     }
     return (
       <div key={country.name} className={classes.root}>
